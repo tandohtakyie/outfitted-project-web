@@ -4,6 +4,7 @@
         <label>Employee name</label>
     <label>
       <input
+          ref = "nameField"
           v-model="employee.name"
           type="text"
           :class="{ 'has-error': submission && emptyName }"
@@ -11,7 +12,9 @@
     </label>
     <label>Employee email</label>
     <label>
-      <input v-model="employee.email"
+      <input
+          ref = "emailField"
+          v-model="employee.email"
              type="text"
              :class="{ 'has-error': submission && (emptyEmail || isEmailInvalid)}"
       />
@@ -55,6 +58,7 @@ const emailRe =
 
           this.failure = true
           this.emptyField = true
+          this.$refs.nameField.focus()
           return
         }
 
@@ -62,11 +66,13 @@ const emailRe =
 
           this.failure = true
           this.invalidEmail = true
+          this.$refs.emailField.focus()
           return
         }
 
         this.success = true
         this.$emit('add:employee', this.employee)
+        this.$refs.nameField.focus()
         this.employee = {
           name: "",
           email: "",
