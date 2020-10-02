@@ -21,9 +21,9 @@
     </label>
     <p v-if="failure && submission && emptyField" class="failure-message">
       Please fill out the required fields ! </p>
-    <p v-if="failure && submission && invalidEmail" class="failure-message">
+    <p v-else-if="failure && submission && invalidEmail" class="failure-message">
       Please enter a valid email address! </p>
-    <p v-if="success" class="acceptance-message">Employee has been successfully added!</p>
+    <p v-else-if="success" class="acceptance-message">Employee has been successfully added!</p>
 
     <button>Add Employee</button>
      </form>
@@ -68,21 +68,20 @@ const emailRe =
           return
         }
 
+        this.success = true
         this.$emit('add:employee', this.employee)
         this.employee = {
           name: "",
           email: "",
         }
         this.submission = false
-        this.failure = false
-        this.success = true
-        this.invalidEmail = false
-        this.emptyField = false
       },
 
     clearStatus() {
       this.success = false
       this.failure = false
+      this.invalidEmail = false
+      this.emptyField = false
     }
    },
     computed: {
