@@ -31,7 +31,7 @@
 </template>
 
 <script>
-const emailRe =
+const validEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   export default {
@@ -96,7 +96,7 @@ const emailRe =
         return this.employee.email === ''
       },
       isEmailInvalid() {
-        return !emailRe.test(this.employee.email)
+        return !validEmail.test(this.employee.email)
       }
 
     },
