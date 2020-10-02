@@ -7,8 +7,6 @@
           v-model="employee.name"
           type="text"
           :class="{ 'has-error': submission && emptyName }"
-          @focus="clearStatus"
-          @keypress="clearStatus"
       />
     </label>
     <label>Employee email</label>
@@ -16,7 +14,6 @@
       <input v-model="employee.email"
              type="text"
              :class="{ 'has-error': submission && (emptyEmail || isEmailInvalid)}"
-             @focus="clearStatus"
       />
     </label>
     <p v-if="failure && submission && emptyField" class="failure-message">
