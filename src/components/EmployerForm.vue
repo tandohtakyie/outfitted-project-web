@@ -2,19 +2,23 @@
   <div id="employer-form">
   <form @submit.prevent="manageSubmit">
         <label>Employee name</label>
-        <input
-            v-model="employee.name"
-            type="text"
-            :class="{ 'has-error': submission && emptyName }"
-            @focus="clearStatus"
-            @keypress="clearStatus"
-        />
-        <label>Employee email</label>
-        <input v-model="employee.email"
-               type="text"
-               :class="{ 'has-error': submission && (emptyEmail || isEmailInvalid)}"
-               @focus="clearStatus"
-        />
+    <label>
+      <input
+          v-model="employee.name"
+          type="text"
+          :class="{ 'has-error': submission && emptyName }"
+          @focus="clearStatus"
+          @keypress="clearStatus"
+      />
+    </label>
+    <label>Employee email</label>
+    <label>
+      <input v-model="employee.email"
+             type="text"
+             :class="{ 'has-error': submission && (emptyEmail || isEmailInvalid)}"
+             @focus="clearStatus"
+      />
+    </label>
     <p v-if="failure && submission && emptyField" class="failure-message">
       Please fill out the required fields ! </p>
     <p v-if="failure && submission && invalidEmail" class="failure-message">
@@ -28,7 +32,7 @@
 
 <script>
 const emailRe =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   export default {
     name: 'employer-form',
