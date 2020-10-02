@@ -16,7 +16,7 @@
           ref = "emailField"
           v-model="employee.email"
              type="text"
-             :class="{ 'has-error': submission && (emptyEmail || isEmailInvalid)}"
+             :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
       />
     </label>
     <p v-if="failure && submission && emptyField" class="failure-message">
@@ -62,7 +62,7 @@ const validEmail =
           return
         }
 
-        if (this.isEmailInvalid)  {
+        if (!this.validEmail)  {
 
           this.failure = true
           this.invalidEmail = true
@@ -95,8 +95,8 @@ const validEmail =
       emptyEmail() {
         return this.employee.email === ''
       },
-      isEmailInvalid() {
-        return !validEmail.test(this.employee.email)
+      validEmail() {
+        return validEmail.test(this.employee.email)
       }
 
     },
