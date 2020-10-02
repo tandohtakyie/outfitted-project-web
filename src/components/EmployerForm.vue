@@ -12,11 +12,13 @@
         <label>Employee email</label>
         <input v-model="employee.email"
                type="text"
-               :class="{ 'has-error': submission && emptyEmail }"
+               :class="{ 'has-error': submission && (emptyEmail || isEmailInvalid)}"
                @focus="clearStatus"
         />
-    <p v-if="failure && submission" class="failure-message">
+    <p v-if="failure && submission && emptyField" class="failure-message">
       Please fill out the required fields ! </p>
+    <p v-if="failure && submission && invalidEmail" class="failure-message">
+      Please enter a valid email address! </p>
     <p v-if="success" class="acceptance-message">Employee has been successfully added!</p>
 
     <button>Add Employee</button>
@@ -25,12 +27,17 @@
 </template>
 
 <script>
+const emailRe =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   export default {
     name: 'employer-form',
     data() {
       return {
         submission: false,
         failure: false,
+        invalidEmail: false,
+        emptyField: false,
         success: false,
         employee: {
           name: '',
@@ -43,9 +50,17 @@
         this.submission = true
         this.clearStatus()
 
-        if (this.emptyName || this.emptyEmail) {
+        if (this.emptyName || this.emptyEmail)  {
 
           this.failure = true
+          this.emptyField = true
+          return
+        }
+
+        if (this.isEmailInvalid)  {
+
+          this.failure = true
+          this.invalidEmail = true
           return
         }
 
@@ -57,6 +72,8 @@
         this.submission = false
         this.failure = false
         this.success = true
+        this.invalidEmail = false
+        this.emptyField = false
       },
 
     clearStatus() {
@@ -72,6 +89,10 @@
       emptyEmail() {
         return this.employee.email === ''
       },
+      isEmailInvalid() {
+        return !emailRe.test(this.employee.email)
+      }
+
     },
  }
 </script>
