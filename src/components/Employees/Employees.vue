@@ -14,7 +14,7 @@ import EmployerForm from '@/components/Employees/EmployerForm.vue'
 import firebase from "firebase";
 
 export default {
-  name: 'crudComponent',
+  name: 'employeeComponent',
   components: {
     AdminPanel,
     EmployerForm,
