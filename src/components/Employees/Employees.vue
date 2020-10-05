@@ -49,17 +49,11 @@ export default {
     async createEmployee(employee) {
       console.log(employee);
 
-      const previousEmployeeId =
-          this.employees.length > 0
-              ? this.employees[this.employees.length - 1].id
-              : 0;
-      const newEmployeeId = previousEmployeeId + 1;
-      const newEmployee = { ...employee, newEmployeeId };
-
+      this.setNewEmployeeId(employee);
       var db = firebase.firestore();
       try {
-        await db.collection('accounts').doc(employee.name).set(newEmployee);
-        this.employees = [...this.employees, newEmployee]
+        await db.collection('accounts').doc(employee.name).set(employee);
+        this.employees = [...this.employees, employee]
       } catch (error) {
         console.error(error)
       }
@@ -83,7 +77,14 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    }
+    },
+    setNewEmployeeId(employee){
+      const previousEmployeeId =
+          this.employees.length > 0
+              ? this.employees[this.employees.length - 1].id
+              : 0;
+      employee.id = previousEmployeeId + 1;
+    },
   }
 }
 </script>
