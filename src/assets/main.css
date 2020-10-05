@@ -1037,9 +1037,13 @@ caption {
     margin-left: auto;
     background-color: white;
 }
-/*
+
 .footer {
     padding: 15px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     color: black;
     background-color: rgb(247, 247, 247);
     text-align: center;
@@ -1047,8 +1051,6 @@ caption {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-/*
- */
 
 .header {
     position: relative;
