@@ -3,7 +3,7 @@
   <form @submit.prevent="manageSubmit">
         <label>Employee name</label>
     <label>
-      <input
+      <input class="employeeInput"
           ref = "nameField"
           v-model="employee.name"
           type="text"
@@ -12,7 +12,7 @@
     </label>
     <label>Employee email</label>
     <label>
-      <input
+      <input class="employeeInput"
           ref = "emailField"
           v-model="employee.email"
              type="text"

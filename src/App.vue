@@ -1,21 +1,29 @@
 <template>
-  <div id="app" class="small-container">
-    <h1>Employee List</h1>
-    <employer-form :employees="employees" @add:employee="createEmployee"/>
-    <admin-panel :employees="employees"
-                 @delete:employee="deleteEmployee"
-                 @edit:employee="editEmployee"
-/>
+  <div class="appContainer">
+    <div id="app" class="mainContainer">
+      <Header></Header>
+      <h1>Employee List</h1>
+      <employer-form :employees="employees" @add:employee="createEmployee"/>
+      <admin-panel :employees="employees"
+                   @delete:employee="deleteEmployee"
+                   @edit:employee="editEmployee"
+      />
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
 <script>
 import AdminPanel from '@/components/AdminPanel.vue'
 import EmployerForm from '@/components/EmployerForm.vue'
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export default {
   name: 'app',
   components: {
+    Header,
+    Footer,
     AdminPanel,
     EmployerForm,
   },
@@ -87,12 +95,5 @@ export default {
 </script>
 
 <style>
-button {
-  background: #009435;
-  border: 1px solid #009435;
-}
-
-.small-container {
-  max-width: 600px;
-}
+@import "assets/main.css";
 </style>
