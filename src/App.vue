@@ -19,6 +19,7 @@ import EmployerForm from '@/components/EmployerForm.vue'
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
+import firebase from "firebase";
 export default {
   name: 'app',
   components: {
@@ -29,12 +30,9 @@ export default {
   },
   data() {
     return {
+
       employees: [
-        {
-          id: 1,
-          name: 'Test account',
-          email: 'test.account@outfited.com'
-        },
+
       ],
     }
   },
@@ -46,9 +44,12 @@ export default {
   methods: {
     async getAllEmployees() {
       try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users')
-        const data = await response.json()
-        this.employees = data
+        var db = firebase.firestore();
+        const accounts = db.collection('accounts');
+        const snapshot = await accounts.get();
+        snapshot.forEach(doc => {
+          this.employees = [...this.employees, doc.data()]
+        });
       } catch (error) {
         console.error(error)
       }
