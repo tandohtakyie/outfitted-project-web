@@ -47,37 +47,31 @@ export default {
     },
 
     async createEmployee(employee) {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users', {
-          method: 'POST',
-          body: JSON.stringify(employee),
-          headers: {'Content-type': 'application/json; charset=UTF-8'},
-        })
-        const data = await response.json()
-        this.employees = [...this.employees, data]
-      } catch (error) {
-        console.error(error)
-      }
+      console.log(employee);
+          var db = firebase.firestore();
+            try {
+              await db.collection('accounts').doc(employee.name).set(employee);
+              this.employees = [...this.employees, employee]
+            } catch (error) {
+              console.error(error)
+            }
     },
     async deleteEmployee(id) {
+    console.log(id);
+    var db = firebase.firestore();
       try {
-        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
-          method: "DELETE"
-        });
-        this.employees = this.employees.filter(employee => employee.id !== id);
+        await db.collection('accounts').doc(id).delete();
+        this.employees = this.employees.filter(employee => employee.name !== id);
       } catch (error) {
         console.error(error);
       }
     },
     async editEmployee(id, updatedEmployee) {
+    console.log(id);
+    var db = firebase.firestore();
       try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify(updatedEmployee),
-          headers: {'Content-type': 'application/json; charset=UTF-8'},
-        })
-        const data = await response.json()
-        this.employees = this.employees.map(employee => (employee.id === id ? data : employee))
+            await db.collection('accounts').doc(id).set(updatedEmployee);
+            this.employees = this.employees.map(employee => (employee.id === id : employee));
       } catch (error) {
         console.error(error)
       }
