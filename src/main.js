@@ -1,6 +1,34 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueRouter from "vue-router"
 import firebase from "firebase";
+
+import Home from "@/components/Home"
+import Employees from "@/components/Employees";
+import Products from "@/components/Products";
+
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import {library} from "@fortawesome/fontawesome-svg-core";
+
+Vue.use(VueRouter);
+const routes = [
+{path: "/", component: Home},
+{path: "/employees", component: Employees},
+{path: "/products", component: Products},
+];
+
+const router = new VueRouter({
+  routes,
+  mode: 'history'});
+Vue.component('Navigation', require('./components/Navigationbar.vue').default);
+
+
+
+import{faPlus, faMinus, faTrash, faCheck, faEdit} from "@fortawesome/free-solid-svg-icons"
+
+
+library.add(faPlus, faMinus, faTrash, faCheck, faEdit);
 Vue.config.productionTip = false
 
 var firebaseConfig = {
@@ -21,4 +49,5 @@ firebase.initializeApp(firebaseConfig);
 
 new Vue({
   render: h => h(App),
+  router,
 }).$mount('#app')
