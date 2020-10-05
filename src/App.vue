@@ -2,17 +2,21 @@
   <div id="main-app">
     <navigationbar></navigationbar>
     <router-view></router-view>
+    <footer></footer>
   </div>
 </template>
 
 <script>
 
 import firebase from "firebase";
-import Navigationbar from "@/components/Navigationbar";
+import navigationbar from "@/components/Navigationbar";
+
 export default {
   name: 'app',
   components: {
-    Navigationbar
+    navigationbar,
+
+
   },
   data() {
     return {
