@@ -71,7 +71,7 @@ export default {
     var db = firebase.firestore();
       try {
             await db.collection('accounts').doc(id).set(updatedEmployee);
-            this.employees = this.employees.map(employee => (employee.id === id : employee));
+            this.employees = this.employees.map(employee => (employee.id === id, employee));
       } catch (error) {
         console.error(error)
       }
