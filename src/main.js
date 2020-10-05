@@ -3,9 +3,9 @@ import App from './App.vue'
 import VueRouter from "vue-router"
 import firebase from "firebase";
 
-import Home from "@/components/Home"
-import Employees from "@/components/Employees";
-import Products from "@/components/Products";
+import Home from "@/components/Home/Home"
+import Employees from "@/components/Employees/Employees";
+import Products from "@/components/Products/Products";
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";

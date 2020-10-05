@@ -1037,7 +1037,7 @@ caption {
     margin-left: auto;
     background-color: white;
 }
-
+/*
 .footer {
     padding: 15px;
     color: black;
@@ -1047,17 +1047,19 @@ caption {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+/*
+ */
 
 .header {
     position: relative;
-    top: 20px;
+    top: 0;
     width: 100%;
     background-color: rgb(247, 247, 247);
 }
 
 .header .outfitted-logo {
     width: 200px;
-    height: 100px;
+    height: 70px;
     position: relative;
     text-align: left;
     display: block;
@@ -1069,6 +1071,3 @@ caption {
     width: auto;
 }
 
-.header{
-    top: 0;
-}

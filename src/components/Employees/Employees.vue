@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import AdminPanel from '@/components/AdminPanel.vue'
-import EmployerForm from '@/components/EmployerForm.vue'
+import AdminPanel from '@/components/Employees/AdminPanel.vue'
+import EmployerForm from '@/components/Employees/EmployerForm.vue'
 import firebase from "firebase";
 
 export default {

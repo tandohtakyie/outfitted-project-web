@@ -1,6 +1,6 @@
 <template>
 <div>
-  <table class="table table-striped">
+  <form>
     <thead>
     <tr>
       <th scope="col">ProductId</th>
@@ -29,7 +29,7 @@
       <td>@twitter</td>
     </tr>
     </tbody>
-  </table></div>
+  </form></div>
 
 </template>
 
