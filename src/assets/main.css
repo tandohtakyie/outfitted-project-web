@@ -1068,3 +1068,7 @@ caption {
 .employeeInput {
     width: auto;
 }
+
+.header{
+    top: 0;
+}
