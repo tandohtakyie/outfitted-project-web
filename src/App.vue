@@ -3,30 +3,22 @@
     <div id="app" class="mainContainer">
       <Header></Header>
       <h1>Employee List</h1>
-      <employer-form :employees="employees" @add:employee="createEmployee"/>
-      <admin-panel :employees="employees"
-                   @delete:employee="deleteEmployee"
-                   @edit:employee="editEmployee"
-      />
+      <crud-component></crud-component>
       <Footer></Footer>
     </div>
   </div>
 </template>
-
 <script>
-import AdminPanel from '@/components/AdminPanel.vue'
-import EmployerForm from '@/components/EmployerForm.vue'
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import CrudComponent from "@/components/CrudComponent";
 
-import firebase from "firebase";
 export default {
   name: 'app',
   components: {
     Header,
     Footer,
-    AdminPanel,
-    EmployerForm,
+    CrudComponent,
   },
   data() {
     return {
@@ -37,54 +29,8 @@ export default {
     }
   },
 
-  mounted() {
-    this.getAllEmployees()
-  },
-
   methods: {
-    async getAllEmployees() {
-      try {
-        var db = firebase.firestore();
-        const accounts = db.collection('accounts');
-        const snapshot = await accounts.get();
-        snapshot.forEach(doc => {
-          this.employees = [...this.employees, doc.data()]
-        });
-      } catch (error) {
-        console.error(error)
-      }
-    },
 
-    async createEmployee(employee) {
-      console.log(employee);
-          var db = firebase.firestore();
-            try {
-              await db.collection('accounts').doc(employee.name).set(employee);
-              this.employees = [...this.employees, employee]
-            } catch (error) {
-              console.error(error)
-            }
-    },
-    async deleteEmployee(id) {
-    console.log(id);
-    var db = firebase.firestore();
-      try {
-        await db.collection('accounts').doc(id).delete();
-        this.employees = this.employees.filter(employee => employee.name !== id);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async editEmployee(id, updatedEmployee) {
-    console.log(id);
-    var db = firebase.firestore();
-      try {
-            await db.collection('accounts').doc(id).set(updatedEmployee);
-            this.employees = this.employees.map(employee => (employee.id === id, employee));
-      } catch (error) {
-        console.error(error)
-      }
-    }
   }
 }
 </script>
