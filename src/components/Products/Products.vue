@@ -14,7 +14,7 @@ import ProductPanel from "@/components/Products/ProductPanel";
 import firebase from "firebase";
 
 export default {
-  name: 'crudComponent',
+  name: 'productsComponent',
   components: {
     ProductForm,
     ProductPanel,

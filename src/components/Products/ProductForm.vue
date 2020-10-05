@@ -19,10 +19,9 @@
                :class="{ 'has-error': submission && emptyStock }"
         />
       </label>
-      <p v-if="failure && submission && emptyField" class="failure-message">
+      <p v-if="submission && emptyField" class="failure-message">
         Please fill out the required fields ! </p>
       <p v-else-if="success" class="acceptance-message">Product has been successfully added!</p>
-
       <button>Add product</button>
     </form>
   </div>
@@ -51,7 +50,7 @@ export default {
       this.submission = true
       this.clearStatus()
 
-      if (this.emptName || this.emptyStock)  {
+      if (this.emptyName || this.emptyStock)  {
 
         this.failure = true
         this.emptyField = true
