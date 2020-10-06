@@ -52,7 +52,7 @@ export default {
       this.setNewEmployeeId(employee);
       var db = firebase.firestore();
       try {
-        await db.collection('accounts').doc(employee.name).set(employee);
+        await db.collection('accounts').doc(employee.id).set(employee);
         this.employees = [...this.employees, employee]
       } catch (error) {
         console.error(error)
@@ -63,7 +63,7 @@ export default {
       var db = firebase.firestore();
       try {
         await db.collection('accounts').doc(id).delete();
-        this.employees = this.employees.filter(employee => employee.name !== id);
+        this.employees = this.employees.filter(employee => employee.id !== id);
       } catch (error) {
         console.error(error);
       }
@@ -79,11 +79,11 @@ export default {
       }
     },
     setNewEmployeeId(employee){
-      const previousEmployeeId =
+       const previousEmployeeId =
           this.employees.length > 0
               ? this.employees[this.employees.length - 1].id
               : 0;
-      employee.id = previousEmployeeId + 1;
+      employee.id = String(parseInt(previousEmployeeId)+1)
     },
   }
 }

@@ -28,7 +28,7 @@
           </td>
           <td v-else>
           <button @click="editMode(employee.name)">Edit</button>
-          <button @click="$emit('delete:employee', employee.name)">Delete</button>
+          <button @click="$emit('delete:employee', employee.id)">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -54,7 +54,7 @@
 
       editEmployee(employee) {
         if (employee.name === '' || employee.email === '') return
-        this.$emit('edit:employee', employee.name, employee)
+        this.$emit('edit:employee', employee.id, employee)
         this.editing = null
       }
     }
