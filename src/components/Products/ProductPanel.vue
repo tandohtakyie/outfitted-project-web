@@ -16,19 +16,19 @@
             <input type ="text" v-model="product.name">
           </label>
         </td>
-        <td>{{ product.name }}</td>
-        <td v-if="editing === product.name">
+        <td v-else>{{ product.name }}</td>
+        <td v-if="editing === product.id">
           <label>
             <input type ="text" v-model="product.stock">
           </label>
         </td>
-        <td>{{ product.stock }}</td>
-        <td v-if="editing === product.stock">
+        <td v-else>{{ product.stock }}</td>
+        <td v-if="editing === product.id">
           <button @click="editProduct(product)">Save</button>
         </td>
         <td v-else>
-          <button @click="editMode(product.name)">Edit</button>
-          <button @click="$emit('delete:product', product.name)">Delete</button>
+          <button @click="editMode(product.id)">Edit</button>
+          <button @click="$emit('delete:product', product.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -54,7 +54,7 @@ export default {
 
     editProduct(product) {
       if (product.name === '' || product.stock === '') return
-      this.$emit('edit:product', product.name, product)
+      this.$emit('edit:product', product.id, product)
       this.editing = null
     }
   }

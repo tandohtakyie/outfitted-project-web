@@ -19,6 +19,15 @@
                :class="{ 'has-error': submission && emptyStock }"
         />
       </label>
+      <label>Supplier</label>
+      <label>
+        <input class="supplierNameInput"
+               ref = "supplierField"
+               v-model="product.supplier"
+               type="text"
+               :class="{ 'has-error': submission && emptyName }"
+        />
+      </label>
       <p v-if="submission && emptyField" class="failure-message">
         Please fill out the required fields ! </p>
       <p v-else-if="success" class="acceptance-message">Product has been successfully added!</p>
@@ -42,6 +51,7 @@ export default {
         name: '',
         stock: '',
         id: '',
+        supplier: ''
       },
     }
   },
@@ -50,7 +60,7 @@ export default {
       this.submission = true
       this.clearStatus()
 
-      if (this.emptyName || this.emptyStock)  {
+      if (this.emptyName || this.emptyStock || this.supplier)  {
 
         this.failure = true
         this.emptyField = true
@@ -82,7 +92,11 @@ export default {
     emptyStock() {
       return this.product.stock === ''
     },
+    emptySupplierName() {
+      return this.product.supplier === ''
+    },
   },
+
 }
 </script>
 

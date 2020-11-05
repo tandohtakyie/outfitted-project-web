@@ -12,22 +12,18 @@
       <tbody>
         <tr v-for="employee in employees" :key="employee.id">
           <td v-if="editing === employee.id">
-            <label>
               <input type ="text" v-model="employee.name">
-            </label>
           </td>
-        <td>{{ employee.name }}</td>
-          <td v-if="editing === employee.name">
-            <label>
+        <td v-else>{{ employee.name }}</td>
+          <td v-if="editing === employee.id">
               <input type ="text" v-model="employee.email">
-            </label>
           </td>
-        <td>{{ employee.email }}</td>
-          <td v-if="editing === employee.name">
+        <td v-else>{{ employee.email }}</td>
+          <td v-if="editing === employee.id">
             <button @click="editEmployee(employee)">Save</button>
           </td>
           <td v-else>
-          <button @click="editMode(employee.name)">Edit</button>
+          <button @click="editMode(employee.id)">Edit</button>
           <button @click="$emit('delete:employee', employee.id)">Delete</button>
           </td>
         </tr>
