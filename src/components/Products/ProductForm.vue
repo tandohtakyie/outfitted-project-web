@@ -30,7 +30,7 @@
       </label>
       <div class = "imageChoser">
         <label>Choose a product image</label>
-        <input type="file" @change="chosenImage">
+        <input type="file" accept="image/*" @change="chosenImage ">
       </div>
       <p v-if="submission && emptyField" class="failure-message">
         Please fill out the required fields ! </p>
