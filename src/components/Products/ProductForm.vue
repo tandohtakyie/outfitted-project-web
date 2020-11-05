@@ -14,7 +14,7 @@
       <label>
         <input class="productStockInput"
                ref = "productStockField"
-               v-model="product.amount"
+               v-model="product.stock"
                type="text"
                :class="{ 'has-error': submission && emptyStock }"
         />
@@ -25,9 +25,13 @@
                ref = "supplierField"
                v-model="product.supplier"
                type="text"
-               :class="{ 'has-error': submission && emptyName }"
+               :class="{ 'has-error': submission && emptySupplierName }"
         />
       </label>
+      <div class = "imageChoser">
+        <label>Choose a product image</label>
+        <input type="file" @change="chosenImage">
+      </div>
       <p v-if="submission && emptyField" class="failure-message">
         Please fill out the required fields ! </p>
       <p v-else-if="success" class="acceptance-message">Product has been successfully added!</p>
@@ -44,14 +48,14 @@ export default {
     return {
       submission: false,
       failure: false,
-      invalidEmail: false,
       emptyField: false,
       success: false,
       product: {
         name: '',
         stock: '',
         id: '',
-        supplier: ''
+        supplier: '',
+        productImage: '',
       },
     }
   },
@@ -60,11 +64,12 @@ export default {
       this.submission = true
       this.clearStatus()
 
-      if (this.emptyName || this.emptyStock || this.supplier)  {
-
+      console.log("het gaat checken of het leeg is")
+      if (this.emptyName || this.emptyStock || this.emptySupplierName || this.emptyProductPicture) {
         this.failure = true
         this.emptyField = true
         this.$refs.nameField.focus()
+        console.log("het checkt of het leeg is")
         return
       }
 
@@ -74,6 +79,9 @@ export default {
       this.product = {
         name: "",
         stock: "",
+        supplier: "",
+        id: "",
+        productImage: "",
       }
       this.submission = false
     },
@@ -82,22 +90,29 @@ export default {
       this.success = false
       this.failure = false
       this.emptyField = false
-    }
-  },
-  computed: {
-    emptyName() {
-      return this.product.name === ''
     },
-
-    emptyStock() {
-      return this.product.stock === ''
-    },
-    emptySupplierName() {
-      return this.product.supplier === ''
+    chosenImage(event) {
+      console.log(event)
+      this.product.productImage = event.target.files[0]
     },
   },
-
+    computed: {
+      emptyName() {
+        return this.product.name === ''
+      },
+      emptyStock() {
+        return this.product.stock === ''
+      },
+      emptySupplierName() {
+        return this.product.supplier === ''
+      },
+      emptyProductPicture() {
+        return this.product.productImage === ''
+      },
+  },
 }
+
+
 </script>
 
 <style scoped>

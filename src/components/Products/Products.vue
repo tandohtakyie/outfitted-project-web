@@ -52,7 +52,7 @@ export default {
       this.setNewProductId(product);
       var db = firebase.firestore();
       try {
-        await db.collection('products').doc(product.name).set(product);
+        await db.collection('products').doc(product.id).set(product);
         this.products = [...this.products, product]
       } catch (error) {
         console.error(error)
@@ -63,7 +63,7 @@ export default {
       var db = firebase.firestore();
       try {
         await db.collection('products').doc(id).delete();
-        this.products = this.products.filter(product => product.name !== id);
+        this.products = this.products.filter(product => product.id !== id);
       } catch (error) {
         console.error(error);
       }
