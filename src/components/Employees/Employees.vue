@@ -37,6 +37,7 @@ export default {
       try {
         var db = firebase.firestore();
         const accounts = db.collection('accounts');
+        console.log(accounts);
         const snapshot = await accounts.get();
         snapshot.forEach(doc => {
           this.employees = [...this.employees, doc.data()]
@@ -78,12 +79,15 @@ export default {
         console.error(error)
       }
     },
+    //Here, amount of objects is accessed to provide unique numeric id.
+    //input: object Employee. Output: altered employee.id.
     setNewEmployeeId(employee){
        const previousEmployeeId =
           this.employees.length > 0
               ? this.employees[this.employees.length - 1].id
               : 0;
       employee.id = String(parseInt(previousEmployeeId)+1)
+      //output is altered employee id
     },
   }
 }
