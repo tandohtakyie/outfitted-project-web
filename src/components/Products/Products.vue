@@ -21,7 +21,6 @@ export default {
   },
   data() {
     return {
-
       products: [
 
       ],
@@ -45,103 +44,101 @@ export default {
         console.error(error)
       }
     },
+    async uploadFile(file, type, name, product){
+        var db = firebase.firestore();
+        var storageRef = firebase.storage().ref();
+
+          // Create a reference to 'mountains.jpg'
+          var typeRef = storageRef.child(name+'.jpg');
+
+          // Create a reference to 'images/mountains.jpg'
+          var typeNameRef = storageRef.child(type+'/'+name+'.jpg');
+
+          // While the file names are the same, the references point to different files
+          typeRef.name === typeNameRef.name            // true
+          typeRef.fullPath === typeNameRef.fullPath    // false
+
+          var uploadTask = typeNameRef.put(file);
+
+          // Listen for state changes, errors, and completion of the upload.
+          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                  console.log('Upload is paused');
+                  break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                  console.log('Upload is running');
+                  break;
+              }
+            }, function(error) {console.log(error)}, function() {
+            // Upload completed successfully, now we can get the download URL
+            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            product.productImage = downloadURL;
+             db.collection('products').doc(product.id.toString()).set(product);
+            });
+          });
+    },
 
     async createProduct(product) {
-      console.log(product);
+
 
       this.setNewProductId(product);
-      var db = firebase.firestore();
       try {
-      // Create a root reference
-                  var storageRef = firebase.storage().ref();
-
-                  // Create a reference to 'mountains.jpg'
-                  var typeRef = storageRef.child(product.name+'.jpg');
-
-                  // Create a reference to 'images/mountains.jpg'
-                  var typeNameRef = storageRef.child('products/'+product.name+'.jpg');
-
-                  // While the file names are the same, the references point to different files
-                  typeRef.name === typeNameRef.name            // true
-                  typeRef.fullPath === typeNameRef.fullPath    // false
-
-                  var file = product.productImage // use the Blob or File API
-                  // Upload file and metadata to the object 'images/mountains.jpg'
-                  var uploadTask = typeNameRef.put(file);
-
-                  // Listen for state changes, errors, and completion of the upload.
-                  uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                    function(snapshot) {
-                      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                      console.log('Upload is ' + progress + '% done');
-                      switch (snapshot.state) {
-                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                          console.log('Upload is paused');
-                          break;
-                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                          console.log('Upload is running');
-                          break;
-                      }
-                    }, function(error) {
-
-                    // A full list of error codes is available at
-                    // https://firebase.google.com/docs/storage/web/handle-errors
-                    switch (error.code) {
-                      case 'storage/unauthorized':
-                        // User doesn't have permission to access the object
-                        break;
-
-                      case 'storage/canceled':
-                        // User canceled the upload
-                        break;
-
-                      case 'storage/unknown':
-                        // Unknown error occurred, inspect error.serverResponse
-                        break;
-                    }
-                  }, function() {
-                    // Upload completed successfully, now we can get the download URL
-                    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                      product.productImage = downloadURL;
-                      db.collection('products').doc(product.id.toString()).set(product);
-                    });
-                  });
-
-
-
+        this.uploadFile(product.productImage, "products", product.name, product);
         this.products = [...this.products, product]
       } catch (error) {
         console.error(error)
       }
     },
-    async deleteProduct(id) {
-      console.log(id);
+    async deleteProduct(p) {
+      console.log(p);
       var db = firebase.firestore();
+      await db.collection('products').doc(p.id.toString()).delete();
+      this.products = this.products.filter(product => product.id !== p.id);
       try {
-        await db.collection('products').doc(id).delete();
-        this.products = this.products.filter(product => product.id !== id);
+          // Get a reference to the storage service, which is used to create references in your storage bucket
+          var storage = firebase.storage();
+
+          // Create a storage reference from our storage service
+          var storageRef = storage.ref();
+
+           // Create a reference to the file to delete
+           var delRef = storageRef.child('products/'+p.name+'.jpg');
+
+           // Delete the file
+           delRef.delete().then(function() {
+             // File deleted successfully
+           }).catch(function(error) {
+             // Uh-oh, an error occurred!
+             console.log(error);
+           });
       } catch (error) {
         console.error(error);
       }
     },
     async editProduct(id, updatedProduct) {
-      console.log(id);
+      //const pRef = db.collection('products').doc('SF');
+      //const p = await pRef.get();
       var db = firebase.firestore();
       try {
-        await db.collection('products').doc(id).set(updatedProduct);
+        await db.collection('products').doc(id.toString()).set(updatedProduct);
         this.products = this.products.map(product => (product.id === id, product));
+        //replace the image, for when able
       } catch (error) {
         console.error(error)
       }
     },
     setNewProductId(product){
-      const previousProductId =
-          this.products.length > 0
-              ? this.products[this.products.length - 1].id
-              : 0;
-      product.id = previousProductId + 1;
-    },
+          const previousProductId =
+              this.products.length > 0
+                  ? this.products[this.products.length - 1].id
+                  : 0;
+          product.id = previousProductId + 1;
+     },
   }
 }
 </script>
