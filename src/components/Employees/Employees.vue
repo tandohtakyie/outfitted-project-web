@@ -37,18 +37,15 @@ export default {
       try {
         var db = firebase.firestore();
         const accounts = db.collection('accounts');
-        console.log(accounts);
         const snapshot = await accounts.get();
         snapshot.forEach(doc => {
           this.employees = [...this.employees, doc.data()]
         });
       } catch (error) {
-        console.error(error)
       }
     },
 
     async createEmployee(employee) {
-      console.log(employee);
 
       this.setNewEmployeeId(employee);
       var db = firebase.firestore();
@@ -56,27 +53,22 @@ export default {
         await db.collection('accounts').doc(employee.id).set(employee);
         this.employees = [...this.employees, employee]
       } catch (error) {
-        console.error(error)
       }
     },
     async deleteEmployee(id) {
-      console.log(id);
       var db = firebase.firestore();
       try {
         await db.collection('accounts').doc(id).delete();
         this.employees = this.employees.filter(employee => employee.id !== id);
       } catch (error) {
-        console.error(error);
       }
     },
     async editEmployee(id, updatedEmployee) {
-      console.log(id);
       var db = firebase.firestore();
       try {
         await db.collection('accounts').doc(id).set(updatedEmployee);
         this.employees = this.employees.map(employee => (employee.id === id, employee));
       } catch (error) {
-        console.error(error)
       }
     },
     //Here, amount of objects is accessed to provide unique numeric id.
