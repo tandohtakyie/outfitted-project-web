@@ -7,6 +7,7 @@
         <th>Product name</th>
         <th>Available stock</th>
         <th>Supplier</th>
+        <th>Product description</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -30,6 +31,12 @@
           </label>
         </td>
         <td v-else>{{ product.supplier }}</td>
+        <td v-if="editing === product.id">
+          <label>
+            <input type ="text" v-model="product.productDescription">
+          </label>
+        </td>
+        <td v-else>{{ product.productDescription }}</td>
         <td v-if="editing === product.id">
           <button @click="editProduct(product)">Save</button>
         </td>

@@ -28,6 +28,18 @@
                :class="{ 'has-error': submission && emptySupplierName }"
         />
       </label>
+      <div id="seccond row">
+
+      <label>
+        <label>Product description</label>
+        <textarea class="descriptionInput"
+               ref = "descriptionField"
+               v-model="product.productDescription"
+               type="text"
+               :class="{ 'has-error': submission && emptySupplierName }"
+        />
+      </label>
+      </div>
       <div class = "imageChoser">
         <label>Choose a product image</label>
         <input type="file" accept="image/*" @change="chosenImage ">
@@ -56,6 +68,7 @@ export default {
         id: '',
         supplier: '',
         productImage: '',
+        productDescription: '',
       },
     }
   },
@@ -65,7 +78,8 @@ export default {
       this.clearStatus()
 
       console.log("het gaat checken of het leeg is")
-      if (this.emptyName || this.emptyStock || this.emptySupplierName || this.emptyProductPicture) {
+      if (this.emptyName || this.emptyStock || this.emptySupplierName
+          || this.emptyProductPicture || this.emptyProductDescription) {
         this.failure = true
         this.emptyField = true
         this.$refs.nameField.focus()
@@ -82,6 +96,7 @@ export default {
         supplier: "",
         id: "",
         productImage: "",
+        productDescription: "",
       }
       this.submission = false
     },
@@ -109,6 +124,9 @@ export default {
       emptyProductPicture() {
         return this.product.productImage === ''
       },
+      emptyProductDescription(){
+        return this.product.productDescription === ''
+      }
   },
 }
 
