@@ -6,6 +6,11 @@
         <tr>
           <th>Employee name</th>
           <th>Employee email</th>
+          <th>Employee password</th>
+          <th>Street</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Postal code</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -19,6 +24,27 @@
               <input type ="text" v-model="employee.email">
           </td>
         <td v-else>{{ employee.email }}</td>
+          <td v-if="editing === employee.id">
+            <input type ="text" v-model="employee.password">
+          </td>
+          <td v-else>{{ employee.password }}</td>
+          <td v-if="editing === employee.id">
+            <input type ="text" v-model="employee.address.street">
+          </td>
+          <td v-else>{{ employee.address.street }}</td>
+          <td v-if="editing === employee.id">
+            <input type ="text" v-model="employee.address.city">
+          </td>
+          <td v-else>{{ employee.address.city }}</td>
+          <td v-if="editing === employee.id">
+            <input type ="text" v-model="employee.address.state">
+          </td>
+          <td v-else>{{ employee.address.state }}</td>
+          <td v-if="editing === employee.id">
+            <input type ="text" v-model="employee.address.postalCode">
+          </td>
+          <td v-else>{{ employee.address.state }}</td>
+
           <td v-if="editing === employee.id">
             <button @click="editEmployee(employee)">Save</button>
           </td>
