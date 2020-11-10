@@ -8,13 +8,13 @@
 
 <script>
 
-import navigationbar from "@/components/Navigationbar";
+import Navigationbar from "@/components/Navigationbar";
 import Footer from "@/components/Footer";
 
 export default {
   name: 'app',
   components: {
-    navigationbar,
+    Navigationbar,
     Footer
   },
   data() {
@@ -23,8 +23,6 @@ export default {
     }
   }
 }
-
-
 
 </script>
 

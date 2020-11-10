@@ -1,7 +1,7 @@
 <template>
 
   <div class="footer">
-    <span>Copyright &copy; <strong>Hogeschool van Amsterdam</strong></span>
+    <span>Copyright &copy; <strong>Outfitted</strong></span>
   </div>
 
 </template>
