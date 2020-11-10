@@ -62,7 +62,7 @@
              ref = "postalCodeField"
              v-model="employee.address.postalCode"
              type="text"
-             :class="{ 'has-error': submission && (noPostalCode)}"
+             :class="{ 'has-error': submission && (noPostalCode || invalidPostalcode)}"
       />
     </label>
 
@@ -71,6 +71,8 @@
       Please fill out the required fields ! </p>
     <p v-else-if="failure && submission && invalidEmail" class="failure-message">
       Please enter a valid email address! </p>
+    <p v-else-if="failure && submission && invalidPostalcode" class="failure-message">
+      Please enter a valid postal code (example postalcode: 1045 px)! </p>
     <p v-else-if="success" class="acceptance-message">Employee has been successfully added!</p>
     <button>Add Employee</button>
      </form>
@@ -78,8 +80,10 @@
 </template>
 
 <script>
+
 const validEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const validPostalCode = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
 
   export default {
     name: 'employer-form',
@@ -88,6 +92,7 @@ const validEmail =
         submission: false,
         failure: false,
         invalidEmail: false,
+        invalidPostalcode: false,
         noName: false,
         noEmail: false,
         noPassword: false,
@@ -122,6 +127,11 @@ const validEmail =
 
           this.failure = true
           this.invalidEmail = true
+          this.$refs.emailField.focus()
+          return
+        }else if(!validPostalCode){
+          this.failure = true
+          this.invalidPostalcode = true
           this.$refs.emailField.focus()
           return
         }
@@ -162,11 +172,11 @@ const validEmail =
       }
    },
     computed: {
-      emptyName() {
-        return this.employee.name === ''
-      },
       validEmail() {
         return validEmail.test(this.employee.email)
+      },
+      validPostalCode(){
+        return validPostalCode.test(this.employee.address.postalCode)
       }
 
 
