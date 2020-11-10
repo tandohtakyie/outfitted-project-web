@@ -128,10 +128,18 @@ const validEmail =
         this.success = true
         this.$emit('add:employee', this.employee)
         this.$refs.nameField.focus()
-        this.employee = {
-          name: "",
-          email: "",
-        }
+this.employee = {
+          name: '',
+          email: '',
+          id: '',
+          password: '',
+          address:{
+            street: '',
+            city: '',
+            state: '',
+            postalCode: '',
+          }
+        },
         this.submission = false
       },
 
