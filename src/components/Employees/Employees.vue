@@ -42,6 +42,7 @@ export default {
           this.employees = [...this.employees, doc.data()]
         });
       } catch (error) {
+      console.log(error)
       }
     },
 
@@ -52,7 +53,7 @@ export default {
       try {
         await db.collection('accounts').doc(employee.id).set(employee);
         this.employees = [...this.employees, employee]
-      } catch (error) {
+      } catch (error) {console.log(error)
       }
     },
     async deleteEmployee(id) {
@@ -60,7 +61,7 @@ export default {
       try {
         await db.collection('accounts').doc(id).delete();
         this.employees = this.employees.filter(employee => employee.id !== id);
-      } catch (error) {
+      } catch (error) {console.log(error)
       }
     },
     async editEmployee(id, updatedEmployee) {
@@ -68,7 +69,7 @@ export default {
       try {
         await db.collection('accounts').doc(id).set(updatedEmployee);
         this.employees = this.employees.map(employee => (employee.id === id, employee));
-      } catch (error) {
+      } catch (error) {console.log(error)
       }
     },
     //Here, amount of objects is accessed to provide unique numeric id.
