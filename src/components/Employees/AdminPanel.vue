@@ -43,7 +43,7 @@
           <td v-if="editing === employee.id">
             <input type ="text" v-model="employee.address.postalCode">
           </td>
-          <td v-else>{{ employee.address.state }}</td>
+          <td v-else>{{ employee.address.postalCode }}</td>
 
           <td v-if="editing === employee.id">
             <button @click="editEmployee(employee)">Save</button>
