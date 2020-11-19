@@ -15,8 +15,17 @@
         <input class="productStockInput"
                ref = "productStockField"
                v-model="product.stock"
-               type="text"
+               type="number"
                :class="{ 'has-error': submission && emptyStock }"
+        />
+      </label>
+      <label>Price</label>
+      <label>
+        <input class="productPriceInput"
+               ref = "productPriceField"
+               v-model="product.price"
+               type="text"
+               :class="{ 'has-error': submission && emptyName }"
         />
       </label>
       <label>Supplier</label>
@@ -28,7 +37,7 @@
                :class="{ 'has-error': submission && emptySupplierName }"
         />
       </label>
-      <div id="seccond row">
+      <div id="second row">
 
       <label>
         <label>Product description</label>
@@ -66,6 +75,7 @@ export default {
         name: '',
         stock: '',
         id: '',
+        price: '',
         supplier: '',
         productImage: '',
         productDescription: '',
@@ -79,7 +89,7 @@ export default {
 
       console.log("het gaat checken of het leeg is")
       if (this.emptyName || this.emptyStock || this.emptySupplierName
-          || this.emptyProductPicture || this.emptyProductDescription) {
+          || this.emptyProductPicture || this.emptyProductDescription || this.emptyPrice ) {
         this.failure = true
         this.emptyField = true
         this.$refs.nameField.focus()
@@ -95,6 +105,7 @@ export default {
         stock: "",
         supplier: "",
         id: "",
+        price: "",
         productImage: "",
         productDescription: "",
       }
@@ -126,6 +137,9 @@ export default {
       },
       emptyProductDescription(){
         return this.product.productDescription === ''
+      },
+      emptyPrice(){
+        return this.product.price ===''
       }
   },
 }
