@@ -14,7 +14,7 @@
       <label>
         <input class="productStockInput"
                ref = "productStockField"
-               v-model="product.stock"
+               v-model.number="product.stock"
                type="number"
                :class="{ 'has-error': submission && emptyStock }"
         />
@@ -23,7 +23,7 @@
       <label>
         <input class="productPriceInput"
                ref = "productPriceField"
-               v-model="product.price"
+               v-model.number="product.price"
                type="number"
                :class="{ 'has-error': submission && emptyName }"
         />
