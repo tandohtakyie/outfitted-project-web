@@ -24,7 +24,7 @@
         <input class="productPriceInput"
                ref = "productPriceField"
                v-model="product.price"
-               type="text"
+               type="number"
                :class="{ 'has-error': submission && emptyName }"
         />
       </label>
@@ -73,10 +73,10 @@ export default {
       success: false,
       product: {
         name: '',
-        stock: '',
+        stock: 0,
         id: '',
-        price: '',
-        supplier: '',
+        price: 0,
+        supplier: '' ,
         productImage: '',
         productDescription: '',
       },
@@ -102,10 +102,10 @@ export default {
       this.$refs.nameField.focus()
       this.product = {
         name: "",
-        stock: "",
+        stock: 0,
         supplier: "",
         id: "",
-        price: "",
+        price: 0,
         productImage: "",
         productDescription: "",
       }
