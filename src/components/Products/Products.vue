@@ -62,7 +62,7 @@ export default {
 
           // Listen for state changes, errors, and completion of the upload.
           uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-            function(snapshot) {
+          async function(snapshot) {
               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
               var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
               console.log('Upload is ' + progress + '% done');
@@ -74,30 +74,31 @@ export default {
                   console.log('Upload is running');
                   break;
               }
-            }, function(error) {console.log(error)}, function() {
+          }, function(error) {console.log(error)}, function() {
             // Upload completed successfully, now we can get the download URL
-            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            product.productImage = downloadURL;
-             db.collection('products').doc(product.id.toString()).set(product);
+            uploadTask.snapshot.ref.getDownloadURL().then(async function(downloadURL) {
+                 product.productImage = downloadURL;
+                 var newProd = await db.collection('products').add(product);
+                 var id = newProd.id;
+                 product.id = id;
+                 await newProd.update({id: id});
+
             });
           });
     },
 
     async createProduct(product) {
-
-
-      this.setNewProductId(product);
-      try {
-        this.uploadFile(product.productImage, "products", product.name, product);
-        this.products = [...this.products, product]
-      } catch (error) {
-        console.error(error)
-      }
+          try {
+            this.uploadFile(product.productImage, "products", product.name, product);
+            this.products = [...this.products, product]
+          } catch (error) {
+            console.error(error)
+          }
     },
     async deleteProduct(p) {
-      console.log(p);
       var db = firebase.firestore();
-      await db.collection('products').doc(p.id.toString()).delete();
+      console.log(p);
+      await db.collection('products').doc(p.id).delete();
       this.products = this.products.filter(product => product.id !== p.id);
       try {
           // Get a reference to the storage service, which is used to create references in your storage bucket
@@ -108,10 +109,12 @@ export default {
 
            // Create a reference to the file to delete
            var delRef = storageRef.child('products/'+p.name+'.jpg');
+           console.log(delRef);
 
            // Delete the file
            delRef.delete().then(function() {
              // File deleted successfully
+             console.log("file deleted");
            }).catch(function(error) {
              // Uh-oh, an error occurred!
              console.log(error);

@@ -48,10 +48,13 @@ export default {
 
     async createEmployee(employee) {
 
-      this.setNewEmployeeId(employee);
+      //this.setNewEmployeeId(employee);
       var db = firebase.firestore();
       try {
-        await db.collection('accounts').doc(employee.id).set(employee);
+        var empDB = await db.collection('accounts').add(employee);
+        var id = empDB.id;
+        employee.id = id;
+        await empDB.update({id: id});
         this.employees = [...this.employees, employee]
       } catch (error) {console.log(error)
       }
@@ -65,9 +68,10 @@ export default {
       }
     },
     async editEmployee(id, updatedEmployee) {
+        id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
       var db = firebase.firestore();
       try {
-        await db.collection('accounts').doc(id).set(updatedEmployee);
+        await db.collection('accounts').doc(id).update(updatedEmployee);
         this.employees = this.employees.map(employee => (employee.id === id, employee));
       } catch (error) {console.log(error)
       }
