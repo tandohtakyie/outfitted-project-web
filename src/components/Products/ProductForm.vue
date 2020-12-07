@@ -14,9 +14,18 @@
       <label>
         <input class="productStockInput"
                ref = "productStockField"
-               v-model="product.stock"
-               type="text"
+               v-model.number="product.stock"
+               type="number"
                :class="{ 'has-error': submission && emptyStock }"
+        />
+      </label>
+      <label>Price</label>
+      <label>
+        <input class="productPriceInput"
+               ref = "productPriceField"
+               v-model.number="product.price"
+               type="number"
+               :class="{ 'has-error': submission && emptyName }"
         />
       </label>
       <label>Supplier</label>
@@ -28,7 +37,7 @@
                :class="{ 'has-error': submission && emptySupplierName }"
         />
       </label>
-      <div id="seccond row">
+      <div id="second row">
 
       <label>
         <label>Product description</label>
@@ -64,9 +73,10 @@ export default {
       success: false,
       product: {
         name: '',
-        stock: '',
+        stock: 0,
         id: '',
-        supplier: '',
+        price: 0,
+        supplier: '' ,
         productImage: '',
         productDescription: '',
       },
@@ -79,7 +89,7 @@ export default {
 
       console.log("het gaat checken of het leeg is")
       if (this.emptyName || this.emptyStock || this.emptySupplierName
-          || this.emptyProductPicture || this.emptyProductDescription) {
+          || this.emptyProductPicture || this.emptyProductDescription || this.emptyPrice ) {
         this.failure = true
         this.emptyField = true
         this.$refs.nameField.focus()
@@ -92,9 +102,10 @@ export default {
       this.$refs.nameField.focus()
       this.product = {
         name: "",
-        stock: "",
+        stock: 0,
         supplier: "",
         id: "",
+        price: 0,
         productImage: "",
         productDescription: "",
       }
@@ -126,6 +137,9 @@ export default {
       },
       emptyProductDescription(){
         return this.product.productDescription === ''
+      },
+      emptyPrice(){
+        return this.product.price ===''
       }
   },
 }
