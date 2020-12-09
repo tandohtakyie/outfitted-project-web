@@ -8,6 +8,8 @@
         <th>Available stock</th>
         <th>Supplier</th>
         <th>Product description</th>
+        <th>Category</th>
+        <th>Price</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -37,6 +39,18 @@
           </label>
         </td>
         <td v-else>{{ product.productDescription }}</td>
+        <td v-if="editing === product.id">
+          <label>
+            <input type ="text" v-model="product.category">
+          </label>
+        </td>
+        <td v-else>{{ product.category }}</td>
+        <td v-if="editing === product.id">
+          <label>
+            <input type ="text" v-model="product.price">
+          </label>
+        </td>
+        <td v-else>{{ product.price }}</td>
         <td v-if="editing === product.id">
           <button @click="editProduct(product)">Save</button>
         </td>

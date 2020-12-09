@@ -47,6 +47,13 @@
                type="text"
                :class="{ 'has-error': submission && emptySupplierName }"
         />
+        <label>Product category</label>
+        <input class="categoryInput"
+                  ref = "categoryField"
+                  v-model="product.category"
+                  type="text"
+                  :class="{ 'has-error': submission && emptySupplierName  }"
+        />
       </label>
       </div>
       <div class = "imageChoser">
@@ -79,6 +86,7 @@ export default {
         supplier: '' ,
         productImage: '',
         productDescription: '',
+        category: '',
       },
     }
   },
@@ -108,6 +116,7 @@ export default {
         price: 0,
         productImage: "",
         productDescription: "",
+        category: "",
       }
       this.submission = false
     },
@@ -140,7 +149,11 @@ export default {
       },
       emptyPrice(){
         return this.product.price ===''
-      }
+      },
+      emptyCategory(){
+        return this.product.category ===''
+      },
+
   },
 }
 
