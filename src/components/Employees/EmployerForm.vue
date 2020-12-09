@@ -72,7 +72,8 @@
     <p v-else-if="failure && submission && invalidEmail" class="failure-message">
       Please enter a valid email address! </p>
     <p v-else-if="success" class="acceptance-message">Employee has been successfully added!</p>
-    <button>Add Employee</button>
+    <button v-if="type == 'settings'">Edit Employee</button>
+    <button v-if="type == 'add'">Add Employee</button>
      </form>
   </div>
 </template>
@@ -83,6 +84,7 @@ const validEmail =
 
   export default {
     name: 'employer-form',
+    props: ['type'],
     data() {
       return {
         submission: false,
@@ -126,7 +128,11 @@ const validEmail =
         }
 
         this.success = true
-        this.$emit('add:employee', this.employee)
+        if(this.type == "settings"){
+            console.log("great");
+            this.$emit('edit:employee', this.employee)
+        }
+        else this.$emit('add:employee', this.employee)
         this.$refs.nameField.focus()
 this.employee = {
           name: '',

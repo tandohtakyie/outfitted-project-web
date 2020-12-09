@@ -1,6 +1,6 @@
 <template>
   <div><h1>Settings</h1>
-  <employer-form :employees="login" @add:employee="editEmployee"/>
+  <employer-form :employees="login" type="settings" @edit:employee="editEmployee"/>
 
   </div>
 </template>

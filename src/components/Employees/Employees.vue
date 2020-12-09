@@ -1,6 +1,6 @@
 <template>
 <div>
-    <employer-form :employees="employees" @add:employee="createEmployee"/>
+    <employer-form :employees="employees" type="add" @add:employee="createEmployee"/>
       <admin-panel :employees="employees"
                    @delete:employee="deleteEmployee"
                    @edit:employee="editEmployee"
