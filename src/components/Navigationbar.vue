@@ -18,6 +18,9 @@
         <li class="nav-item">
           <router-link to="/products" class="nav-link" href="#">Products</router-link>
         </li>
+        <li class="nav-item">
+           <router-link to="/settings" class="nav-link" href="#">Settings</router-link>
+        </li>
       </ul>
 
     </div>
