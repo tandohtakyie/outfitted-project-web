@@ -1,6 +1,8 @@
 <template>
   <div>
-    <product-form :products="products" @add:product="createProduct"/>
+    <product-form :products="products" @add:product="createProduct"
+    :categories="categories" v-if="categories.length"
+    />
     <product-panel :products="products"
                  @delete:product="deleteProduct"
                  @edit:product="editProduct"
@@ -24,14 +26,30 @@ export default {
       products: [
 
       ],
+      categories:[
+
+      ],
     }
   },
 
   mounted() {
-    this.getAllProducts()
+    this.getAllProducts();
+    this.getAllCategories();
   },
 
   methods: {
+    async getAllCategories() {
+      try {
+        var db = firebase.firestore();
+        const categories = db.collection('categories');
+        const snapshot = await categories.get();
+        snapshot.forEach(doc => {
+          this.categories = [...this.categories, doc.data()]
+        });
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async getAllProducts() {
       try {
         var db = firebase.firestore();

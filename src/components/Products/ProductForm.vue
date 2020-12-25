@@ -48,7 +48,7 @@
                :class="{ 'has-error': submission && emptySupplierName }"
         />
         <label>Product category</label>
-        <input class="categoryInput"
+        <select id="categoryMenu"
                   ref = "categoryField"
                   v-model="product.category"
                   type="text"
@@ -72,6 +72,9 @@
 
 export default {
   name: 'product-form',
+   props: {
+    categories: Array,
+  },
   data() {
     return {
       submission: false,
@@ -89,6 +92,9 @@ export default {
         category: '',
       },
     }
+  },
+  mounted() {
+    this.fillDropdown();
   },
   methods: {
     manageSubmit() {
@@ -120,7 +126,12 @@ export default {
       }
       this.submission = false
     },
-
+    fillDropdown() {
+      var select = document.getElementById("categoryMenu");
+      for(var index in this.categories) {
+        select.options[select.options.length] = new Option(this.categories[index].name, index);
+      }
+    },
     clearStatus() {
       this.success = false
       this.failure = false
@@ -156,7 +167,6 @@ export default {
 
   },
 }
-
 
 </script>
 
