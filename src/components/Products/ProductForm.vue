@@ -101,13 +101,11 @@ export default {
       this.submission = true
       this.clearStatus()
 
-      console.log("het gaat checken of het leeg is")
       if (this.emptyName || this.emptyStock || this.emptySupplierName
           || this.emptyProductPicture || this.emptyProductDescription || this.emptyPrice ) {
         this.failure = true
         this.emptyField = true
         this.$refs.nameField.focus()
-        console.log("het checkt of het leeg is")
         return
       }
 
@@ -129,7 +127,7 @@ export default {
     fillDropdown() {
       var select = document.getElementById("categoryMenu");
       for(var index in this.categories) {
-        select.options[select.options.length] = new Option(this.categories[index].name, index);
+        select.options[select.options.length] = new Option(this.categories[index].name, this.categories[index].name);
       }
     },
     clearStatus() {
