@@ -63,23 +63,17 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);
 });
-// firebase.getCurrentUser = () => {
-//   return new Promise((resolve, reject) => {
-//     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-//       unsubscribe();
-//       resolve(user);
-//     }, reject);
-//   })
-// };
-//
-// router.beforeEach(async (to, from, next) => {
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-//   if (requiresAuth && !await this.firebase.getCurrentUser){
-//     next('login');
-//   }else{
-//     next();
-//   }
-// });
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = firebase.auth().currentUser;
+  console.log("isauthenticated", isAuthenticated);
+  if (requiresAuth && !isAuthenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 
 new Vue({
   router,
