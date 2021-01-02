@@ -62,7 +62,7 @@ name: "Navigationbar",
           .auth()
           .signOut()
           .then(() => {
-            this.$router.replace({ name:"login" });
+            this.$router.push("/login");
           });
     }
   },

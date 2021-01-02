@@ -1,8 +1,10 @@
 <template>
+
   <div><h1>Settings</h1>
   <employer-form :employees="login" type="settings" @edit:employee="editEmployee"/>
 
   </div>
+
 </template>
 
 <script>
@@ -13,6 +15,16 @@ name: "Home",
 components: {
     EmployerForm,
   },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = null;
+      }
+    });
+  },
+
 mounted() {
     this.getLogin()
   },
