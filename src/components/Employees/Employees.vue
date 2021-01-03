@@ -45,19 +45,56 @@ export default {
       console.log(error)
       }
     },
+    async getOneEmployee(id){
+        var emp = db.collection('accounts').doc(id);
+        var doc = await emp.get();
+        if (!doc.exists) {
+          console.log('No such document!');
+          return null;
+
+        } else {
+          console.log('Document data:', doc.data());
+          return doc.data();
+        }
+    }
 
     async createEmployee(employee) {
+    var db = firebase.firestore();
+    try {
+      //register with email and password
+      firebase.auth().createUserWithEmailAndPassword(employee.email, employee.password)
+        .then((user) => {
+          //get registered uid
+          //use id in firebase
+          console.log(user);
+          delete employee.password;
+          employee.uid = user.user.uid;
+          db.collection('accounts').add(employee)
+            .then((empReturn) => {
+              console.log(empReturn);
+              var fstoreID = empReturn.id;
+              console.log(fstoreID);
+              employee.id = fstoreID;
+              db.collection('accounts').doc(fstoreID).update(employee);
+          this.employees = [...this.employees, employee];
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log(errorCode, errorMessage);
+              // ..
+            });
 
-      //this.setNewEmployeeId(employee);
-      var db = firebase.firestore();
-      try {
-        var empDB = await db.collection('accounts').add(employee);
-        var id = empDB.id;
-        employee.id = id;
-        await empDB.update({id: id});
-        this.employees = [...this.employees, employee]
-      } catch (error) {console.log(error)
-      }
+
+
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          // ..
+        });
+        }catch (error) {console.log(error)}
     },
     async deleteEmployee(id) {
       var db = firebase.firestore();
@@ -71,6 +108,16 @@ export default {
         id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
       var db = firebase.firestore();
       try {
+        var oldEmp = getOneEmployee(id);
+        if(oldEmp != null){
+            if(oldEmp.email != updatedEmployee.email){
+                user.updateEmail(updatedEmployee.email).then(function() {
+                }).catch(function(error) {
+                console.log(error);
+                });
+
+            }
+        }
         await db.collection('accounts').doc(id).update(updatedEmployee);
         this.employees = this.employees.map(employee => (employee.id === id, employee));
       } catch (error) {console.log(error)
