@@ -1,3 +1,6 @@
+
+
+
 <template>
 <div class="header">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,14 +30,49 @@
       </ul>
 
     </div>
+
+    <button class="but" @click="signOut">Sign out</button>
   </nav>
 </div>
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
-name: "Navigationbar"
-}
+name: "Navigationbar",
+  mounted() {
+    this.setupFirebase();
+  },  methods: {
+    setupFirebase() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          // User is signed in.
+          console.log("signed in");
+          this.loggedIn = true;
+        } else {
+          // No user is signed in.
+          this.loggedIn = false;
+          console.log("signed out", this.loggedIn);
+        }
+      });
+    },
+    signOut() {
+      firebase
+          .auth()
+          .signOut()
+          .then(() => {
+            this.$router.push("/login");
+          });
+    }
+  },
+  data() {
+    return {
+      loggedIn: false
+    };
+  }
+};
+
 </script>
 
 <style scoped>
