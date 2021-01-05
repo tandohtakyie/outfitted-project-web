@@ -46,6 +46,7 @@ export default {
       }
     },
     async getOneEmployee(id){
+        var db = firebase.firestore();
         var emp = db.collection('accounts').doc(id);
         var doc = await emp.get();
         if (!doc.exists) {
@@ -56,8 +57,8 @@ export default {
           console.log('Document data:', doc.data());
           return doc.data();
         }
-    }
-
+    },
+    //caution: This signs you out and logs you in as newly made user
     async createEmployee(employee) {
     var db = firebase.firestore();
     try {
@@ -108,16 +109,7 @@ export default {
         id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
       var db = firebase.firestore();
       try {
-        var oldEmp = getOneEmployee(id);
-        if(oldEmp != null){
-            if(oldEmp.email != updatedEmployee.email){
-                user.updateEmail(updatedEmployee.email).then(function() {
-                }).catch(function(error) {
-                console.log(error);
-                });
-
-            }
-        }
+        //var oldEmp = getOneEmployee(id);
         await db.collection('accounts').doc(id).update(updatedEmployee);
         this.employees = this.employees.map(employee => (employee.id === id, employee));
       } catch (error) {console.log(error)

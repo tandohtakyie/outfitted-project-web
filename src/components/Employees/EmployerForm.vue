@@ -19,15 +19,17 @@
              :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
       />
     </label>
-    <label>Employee password</label>
-    <label>
-      <input class="employeeInput"
-             ref = "passwordField"
-             v-model="employee.password"
-             type="text"
-             :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
-      />
-    </label>
+    <div v-if="type !== 'settings'">
+        <label>Employee password</label>
+        <label>
+          <input class="employeeInput"
+                 ref = "passwordField"
+                 v-model="employee.password"
+                 type="text"
+                 :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
+          />
+        </label>
+    </div>
     <div id="seccond-row ">
     <label>Street</label>
     <label>
@@ -81,8 +83,9 @@
 <script>
 const validEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+import firebase from "firebase";
   export default {
+
     name: 'employer-form',
     props: ['type'],
     data() {
@@ -106,7 +109,35 @@ const validEmail =
         },
       }
     },
+    mounted: function(){
+        if(this.type == "settings"){
+            delete this.employee.password;
+            this.getLoggedEmployee();
+            console.log(this.employee);
+        }
+    },
     methods: {
+        async getLoggedEmployee(){
+            var db = firebase.firestore();
+            var loggedIn = firebase.auth().currentUser;
+
+            console.log('logged',loggedIn);
+            const docRef = db.collection('accounts');
+            const snapshot = await docRef.where('uid', '==', loggedIn.uid).get();
+            if (snapshot.empty) {
+              console.log('No matching documents.');
+              return;
+            }
+
+            snapshot.forEach(doc => {
+              console.log(doc.id, '=>', doc.data());
+              var employee = doc.data();
+              this.employee.name = employee.name;
+              this.employee.email = employee.email;
+              this.employee.address = employee.address;
+              this.employee.id = employee.id;
+            });
+        },
       manageSubmit() {
         this.submission = true
         this.clearStatus()
@@ -130,7 +161,7 @@ const validEmail =
         this.success = true
         if(this.type == "settings"){
             console.log("great");
-            this.$emit('edit:employee', this.employee)
+            this.$emit('edit:employee', this.employee.id, this.employee)
         }
         else this.$emit('add:employee', this.employee)
         this.$refs.nameField.focus()
