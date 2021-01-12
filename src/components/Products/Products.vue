@@ -96,6 +96,7 @@ export default {
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then(async function(downloadURL) {
                  product.productImage = downloadURL;
+                 product.createdAt = Date.now();
                  var newProd = await db.collection('products').add(product);
                  var id = newProd.id;
                  product.id = id;
