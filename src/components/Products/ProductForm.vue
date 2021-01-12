@@ -57,7 +57,7 @@
         <label>Product discount percentage</label>
         <input class="discountInput"
                 ref = "discountField"
-                v-model.numer="product.discount"
+                v-model.number="product.discount"
                 type="number"
                 :class="{ 'has-error': submission}"
         />
