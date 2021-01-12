@@ -23,7 +23,7 @@
       <label>
         <input class="customerPasswordInput"
                ref = "customerPasswordField"
-               v-model="customer.email"
+               v-model="customer.password"
                type="text"
                :class="{ 'has-error': submission && emptyCustomerPassword }"
         />
@@ -59,7 +59,7 @@ export default {
       this.submission = true
       this.clearStatus()
 
-      if (this.emptyCustomerPicture || this.emptyCustomerName) {
+      if (this.emptyCustomerName) {
         this.failure = true
         this.emptyField = true
         return
@@ -69,7 +69,8 @@ export default {
       this.$emit('add:customer', this.customer)
       this.customer = {
         name: "",
-        customerPicture: "",
+        email: "",
+        password: ""
       }
       this.submission = false
     },
@@ -78,9 +79,6 @@ export default {
       this.success = false
       this.failure = false
       this.emptyField = false
-    },
-    chosenImage(event) {
-      this.customer.customerImage = event.target.files[0]
     },
   },
   computed: {
