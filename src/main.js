@@ -7,6 +7,7 @@ import store from "./store";
 
 import Home from "@/components/Home/Home"
 import Employees from "@/components/Employees/Employees";
+import Customers from "@/components/Customers/Customers";
 import Products from "@/components/Products/Products";
 import Categories from "@/components/Categories/Categories";
 import Login from "@/components/Login/Login";
@@ -20,7 +21,9 @@ Vue.use(Router);
 const routes = [
 {path: "/dashboard", component: Home, meta: {requiresAuth: true}},
 {path: "/employees", component: Employees, meta: {requiresAuth: true}},
-{path: "/products", component: Products, meta: {requiresAuth: true}},
+  {path: "/customers", component: Customers, meta: {requiresAuth: true}},
+
+  {path: "/products", component: Products, meta: {requiresAuth: true}},
   {path: "/categories", component: Categories, meta: {requiresAuth: true}},
   {path: "/settings", component: Settings, meta: {requiresAuth: true}},
 {path: "/login", component: Login},

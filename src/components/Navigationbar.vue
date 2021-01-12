@@ -16,6 +16,9 @@
           <router-link to="/dashboard"  class="nav-link" href="#">Dashboard</router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/customers" class="nav-link" href="#">Customers</router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/employees" class="nav-link" href="#">Employees</router-link>
         </li>
         <li class="nav-item">
