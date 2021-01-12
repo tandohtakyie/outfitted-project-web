@@ -121,6 +121,7 @@ export default {
         productImage: "",
         productDescription: "",
         category: "",
+        createdAt: ""
       }
       this.submission = false
     },
