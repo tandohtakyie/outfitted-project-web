@@ -54,6 +54,13 @@
                   type="text"
                   :class="{ 'has-error': submission && emptySupplierName  }"
         />
+        <label>Product discount percentage</label>
+        <input class="discountInput"
+                ref = "discountField"
+                v-model="product.discount"
+                type="text"
+                :class="{ 'has-error': submission}"
+        />
       </label>
       </div>
       <div class = "imageChoser">
@@ -89,6 +96,7 @@ export default {
         supplier: '' ,
         productImage: '',
         productDescription: '',
+        discount: '',
         category: '',
       },
     }
@@ -121,6 +129,7 @@ export default {
         productImage: "",
         productDescription: "",
         category: "",
+        discount: "",
       }
       this.submission = false
     },
@@ -162,7 +171,6 @@ export default {
       emptyCategory(){
         return this.product.category ===''
       },
-
   },
 }
 

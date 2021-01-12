@@ -10,6 +10,7 @@
         <th>Product description</th>
         <th>Category</th>
         <th>Price</th>
+        <th>Discount percentage</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -51,6 +52,12 @@
           </label>
         </td>
         <td v-else>{{ product.price }}</td>
+        <td v-if="editing === product.id">
+          <label>
+            <input type ="text" v-model="product.discount">
+          </label>
+        </td>
+        <td v-else>{{ product.discount }}</td>
         <td v-if="editing === product.id">
           <button @click="editProduct(product)">Save</button>
         </td>
