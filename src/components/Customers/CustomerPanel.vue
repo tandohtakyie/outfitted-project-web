@@ -28,7 +28,7 @@
         </td>
         <td v-else>
           <button @click="editMode(customer.id)">Edit</button>
-          <button @click="$emit('delete:customer', customer)">Delete</button>
+          <button @click="$emit('delete:customer', customer.id)">Delete</button>
         </td>
       </tr>
       </tbody>
