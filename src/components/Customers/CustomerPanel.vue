@@ -6,6 +6,7 @@
       <tr>
         <th>Customer name</th>
         <th>Customer email</th>
+        <th>Order is successful</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -23,6 +24,9 @@
           </label>
         </td>
         <td v-else>{{ customer.email }}</td>
+        <td v-for="order in Orders()">
+          {{order.isSuccess}}
+        </td>
         <td v-if="editing === customer.id">
           <button @click="editCustomer(customer)">Save</button>
         </td>
@@ -37,10 +41,12 @@
 </template>
 
 <script>
+
 export default {
   name: 'customer-panel',
   props: {
     customers: Array,
+    orders: Array,
   },
   data() {
     return {
@@ -53,13 +59,20 @@ export default {
     },
 
     editCustomer(customer) {
-      if (customer.name === '' || customer.customerImage === '') return
+      if (customer.name === '' ) return
       this.$emit('edit:customer', customer.id, customer)
       this.editing = null
-    }
-  }
+    },
+    Orders(){
+      return this.orders.filter(order => order.isSuccess === true)
+    },
+  },
+  computed: {
 
+
+},
 }
+
 </script>
 
 <style scoped>

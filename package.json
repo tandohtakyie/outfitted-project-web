@@ -22,6 +22,7 @@
     "lodash": "^4.17.20",
     "moment": "^2.29.0",
     "popper.js": "^1.16.1",
+    "postcss-selector-parser": "^6.0.4",
     "vue": "^2.6.11",
     "vue-chartkick": "^0.6.1",
     "vue-router": "^3.4.5",

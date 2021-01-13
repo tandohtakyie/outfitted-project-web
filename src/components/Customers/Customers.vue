@@ -4,6 +4,9 @@
     <customer-panel :customers="customers"
                     @delete:customer="deleteCustomer"
                     @edit:customer="editCustomer"
+                    :orders="orders"
+                    @delete:order="deleteOrder"
+                    @edit:order="editOrder"
     />
   </div>
 </template>
@@ -24,11 +27,15 @@ export default {
       customers: [
 
       ],
+      orders: [
+
+      ],
     }
   },
 
   mounted() {
     this.getAllCustomers()
+    this.getAllOrders()
   },
 
   methods: {
@@ -39,6 +46,18 @@ export default {
         const snapshot = await customers.get();
         snapshot.forEach(doc => {
           this.customers = [...this.customers, doc.data()]
+        });
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getAllOrders() {
+      try {
+        var db = firebase.firestore();
+        const orders = db.collection('orders');
+        const snapshot = await orders.get();
+        snapshot.forEach(doc => {
+          this.orders = [...this.orders, doc.data()]
         });
       } catch (error) {
         console.error(error)
@@ -90,12 +109,29 @@ export default {
       } catch (error) {console.log(error)
       }
     },
+    async deleteOrder(id) {
+      var db = firebase.firestore();
+      try {
+        await db.collection('orders').doc(id).delete();
+        this.orders = this.orders.filter(order => order.id !== id);
+      } catch (error) {console.log(error)
+      }
+    },
     async editCustomer(id, updatedCustomer) {
       id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
       var db = firebase.firestore();
       try {
         await db.collection('customers').doc(id).update(updatedCustomer);
         this.customers = this.customers.map(customer => (customer.id === id, customer));
+      } catch (error) {console.log(error)
+      }
+    },
+    async editOrder(id, updatedOrder) {
+      id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
+      var db = firebase.firestore();
+      try {
+        await db.collection('orders').doc(id).update(updatedOrder);
+        this.orders = this.orders.map(order => (order.id === id, order));
       } catch (error) {console.log(error)
       }
     },
