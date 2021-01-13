@@ -67,16 +67,16 @@ firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);
 });
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const isAuthenticated = firebase.auth().currentUser;
-  console.log("isauthenticated", isAuthenticated);
-  if (requiresAuth && !isAuthenticated) {
-    next("/login");
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+//   const isAuthenticated = firebase.auth().currentUser;
+//   console.log("isauthenticated", isAuthenticated);
+//   if (requiresAuth && !isAuthenticated) {
+//     next("/login");
+//   } else {
+//     next();
+//   }
+// });
 
 new Vue({
   router,
