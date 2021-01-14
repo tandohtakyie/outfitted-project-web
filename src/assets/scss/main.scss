@@ -1,6 +1,4 @@
-html {
-  height: 100%;
-}
+html {height: 100%;}
 body {
   height: 100%;
 
@@ -48,4 +46,18 @@ label{
     color: #232127!important;
     transition: 0.3s!important;
   }
+}
+
+// TRANSITION ANIMATION
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
