@@ -1,9 +1,8 @@
 <template>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">Login</div>
+  <div class="login-box d-flex flex-column align-items-center justify-content-center w-100">
+        <img class="outfitted-logo" src="@/assets/images/logo_reversed_cropped.png" size="20">
+        <div class="card w-50">
+          <div class="card-header">OutFitted Admin Panel</div>
           <div class="card-body">
             <div v-if="error" class="alert alert-danger">{{error}}</div>
             <form action="#" @submit.prevent="submit">
@@ -41,14 +40,12 @@
 
               <div class="form-group row mb-0">
                 <div class="col-md-8 offset-md-4">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn-blue-outfitted btn-hover">Login</button>
                 </div>
               </div>
             </form>
           </div>
         </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -80,3 +77,19 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  .login-box{
+    img{
+      width: 130px;
+      margin-bottom: 30px;
+    }
+  }
+  .card{
+    .card-header{
+      background-color: #232127;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+</style>

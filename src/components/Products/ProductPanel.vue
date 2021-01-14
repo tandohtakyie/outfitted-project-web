@@ -54,7 +54,7 @@
         <td v-else>{{ product.price }}</td>
         <td v-if="editing === product.id">
           <label>
-            <input type ="text" v-model="product.discount">
+            <input type ="text" v-model.number="product.discount">
           </label>
         </td>
         <td v-else>{{ product.discount }}</td>

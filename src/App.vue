@@ -1,7 +1,9 @@
 <template>
   <div id="main-app">
     <navigationbar></navigationbar>
-    <router-view></router-view>
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <router-view></router-view>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -19,13 +21,14 @@ export default {
   },
   data() {
     return {
-
+      
     }
   }
 }
 
 </script>
 
-<style>
-@import "assets/main.css";
+<style lang="scss">
+  @import "assets/main.css";
+  @import "assets/scss/main.scss";
 </style>
