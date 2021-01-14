@@ -24,9 +24,16 @@
           </label>
         </td>
         <td v-else>{{ customer.email }}</td>
-        <td v-for="order in Orders()">
-          {{order.isSuccess}}
-        </td>
+        <table>
+            <tr v-for="order in Orders()" :key="order.orderBy">
+                <td>
+                    <label>Success: {{order.isSuccess}}</label>
+                </td>
+                <td>
+                    <label>{{order.orderStatus}}</label>
+                </td>
+            </tr>
+        </table>
         <td v-if="editing === customer.id">
           <button @click="editCustomer(customer)">Save</button>
         </td>
