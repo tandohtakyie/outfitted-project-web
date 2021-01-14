@@ -78,7 +78,11 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = firebase.auth().currentUser;
   console.log("isauthenticated", isAuthenticated);
   if (requiresAuth && !isAuthenticated) {
-    next("/login");
+    /* 
+       Get authentication via App.vue,
+       then redirect from there to dashboard (if auth valid) or to login (if auth not valid)
+    */
+    next("/");
   } else {
     next();
   }
