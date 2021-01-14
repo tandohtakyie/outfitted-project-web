@@ -24,7 +24,7 @@
           </label>
         </td>
         <td v-else>{{ customer.email }}</td>
-        <td v-for="order in Orders()">
+        <td v-for="order in Orders()" :key="order.id">
           {{order.isSuccess}}
         </td>
         <td v-if="editing === customer.id">
