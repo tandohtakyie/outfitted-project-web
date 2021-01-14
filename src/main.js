@@ -16,6 +16,12 @@ import Settings from "@/components/Settings/Settings";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import {library} from "@fortawesome/fontawesome-svg-core";
+import { faSave } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faSave)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(Router);
 const routes = [

@@ -27,10 +27,35 @@ label{
   margin-top: 0;
 }
 
-.btn-primary {
-  background-color: #232127!important;
-  border-color: 0!important;
+table{
+  
+  th,td{
+    vertical-align: middle!important;
+  }
+  td{
+    input:hover{
+      border: 1px solid #343a40!important;
+      transition: 1s;
+    }
+  }
+  button{
+    &.btn-table{
+      padding: 0.5rem 1.25rem;
+    }
+  }
 }
+
+.txt-center{
+  text-align: center;
+}
+.bold{
+  font-weight: bold;
+}
+
+// .btn-primary {
+//   background-color: #232127!important;
+//   border-color: 0!important;
+// }
 
 .btn-blue-outfitted{
   background-color: #232127;
