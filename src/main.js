@@ -4,7 +4,6 @@ import Router from "vue-router"
 import firebase from "firebase";
 import store from "./store";
 
-
 import Home from "@/components/Home/Home"
 import Employees from "@/components/Employees/Employees";
 import Customers from "@/components/Customers/Customers";
@@ -15,14 +14,23 @@ import Settings from "@/components/Settings/Settings";
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap-css-only/css/bootstrap.min.css'
+import 'mdbvue/lib/css/mdb.min.css'
+import '@fortawesome/fontawesome-free/css/all.min.css'
+
 import {library} from "@fortawesome/fontawesome-svg-core";
-import { faSave } from '@fortawesome/free-solid-svg-icons'
+import{faPlus, faMinus, faTrash, faCheck, faEdit, faSave} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
-library.add(faSave)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(faPlus, faMinus, faTrash, faCheck, faEdit, faSave);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 Vue.use(Router);
 const routes = [
 {path: "/dashboard", component: Home, meta: {requiresAuth: true}},
@@ -35,8 +43,6 @@ const routes = [
 {path: "/login", component: Login},
 ];
 
-
-
 const router = new Router({
   routes,
   base: process.env.BASE_URL,
@@ -45,12 +51,6 @@ const router = new Router({
 export default router
 Vue.component('Navigation', require('./components/Navigationbar.vue').default);
 
-
-
-import{faPlus, faMinus, faTrash, faCheck, faEdit} from "@fortawesome/free-solid-svg-icons"
-
-
-library.add(faPlus, faMinus, faTrash, faCheck, faEdit);
 Vue.config.productionTip = false
 
 var firebaseConfig = {
@@ -62,8 +62,6 @@ var firebaseConfig = {
   messagingSenderId: "899720153742",
   appId: "1:899720153742:web:ba2d0e91f0493cef8f17df",
   measurementId: "G-8CJRL0J8W5"
-
-
 };
 
 // Initialize Firebase
