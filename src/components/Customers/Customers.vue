@@ -7,6 +7,8 @@
                     :orders="orders"
                     @delete:order="deleteOrder"
                     @edit:order="editOrder"
+                    :products="products"
+
     />
   </div>
 </template>
@@ -28,6 +30,9 @@ export default {
 
       ],
       orders: [
+
+      ],
+      products: [
 
       ],
     }
@@ -58,6 +63,18 @@ export default {
         const snapshot = await orders.get();
         snapshot.forEach(doc => {
           this.orders = [...this.orders, doc.data()]
+        });
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async getAllProducts() {
+      try {
+        var db = firebase.firestore();
+        const products = db.collection('products');
+        const snapshot = await products.get();
+        snapshot.forEach(doc => {
+          this.products = [...this.products, doc.data()]
         });
       } catch (error) {
         console.error(error)

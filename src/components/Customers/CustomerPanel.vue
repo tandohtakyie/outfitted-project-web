@@ -6,7 +6,8 @@
       <tr>
         <th>Customer name</th>
         <th>Customer email</th>
-        <th>Order is successful</th>
+        <th>Order status</th>
+        <th>Products</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -25,13 +26,19 @@
         </td>
         <td v-else>{{ customer.email }}</td>
         <table>
-            <tr v-for="order in Orders(customer)" :key="order.orderTime">
+            <tr v-for="order in getOrders(customer)" :key="order.orderTime">
                 <td>
                     <label>Success: {{order.isSuccess}}</label>
                 </td>
                 <td>
                     <label>{{order.orderStatus}}</label>
                 </td>
+              <td>
+                  <li v-for = "product in getProducts(order)" :key="product.id">
+                    {{product.supplier}}
+                  </li>
+              </td>
+
             </tr>
         </table>
         <td v-if="editing === customer.uid">
@@ -54,6 +61,7 @@ export default {
   props: {
     customers: Array,
     orders: Array,
+    products: Array,
   },
   data() {
     return {
@@ -70,9 +78,16 @@ export default {
       this.$emit('edit:customer', customer.uid, customer)
       this.editing = null
     },
-    Orders(customer){
-      console.log(customer);
+    getOrders(customer){
       return this.orders.filter(order => order.orderBy === customer.uid)
+    },
+    getProducts(order){
+      var productArray = [];
+      for (var i = 0; i < order.OrderedProductIDs.length; i++) {
+        productArray[i] = this.products.filter(product => product.id === order.OrderedProductIDs[i])
+      }
+      console.log(productArray);
+      return productArray;
     },
   },
   computed: {
