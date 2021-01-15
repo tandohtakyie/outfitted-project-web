@@ -24,16 +24,16 @@
           </label>
         </td>
         <td v-else>{{ customer.email }}</td>
-<!--        <table>-->
-<!--            <tr v-for="order in Orders()" :key="order.orderBy">-->
-<!--                <td>-->
-<!--                    <label>Success: {{order.isSuccess}}</label>-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <label>{{order.orderStatus}}</label>-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </table>-->
+        <table>
+            <tr v-for="order in Orders(customer)" :key="order.orderTime">
+                <td>
+                    <label>Success: {{order.isSuccess}}</label>
+                </td>
+                <td>
+                    <label>{{order.orderStatus}}</label>
+                </td>
+            </tr>
+        </table>
         <td v-if="editing === customer.uid">
           <button @click="editCustomer(customer)">Save</button>
         </td>
@@ -70,8 +70,9 @@ export default {
       this.$emit('edit:customer', customer.uid, customer)
       this.editing = null
     },
-    Orders(){
-      return this.orders.filter(order => order.isSuccess === true)
+    Orders(customer){
+      console.log(customer);
+      return this.orders.filter(order => order.orderBy === customer.uid)
     },
   },
   computed: {
