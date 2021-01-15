@@ -96,7 +96,7 @@ export default {
                     console.log(empReturn);
                     var fstoreID = empReturn.id;
                     console.log(fstoreID);
-                    customer.id = fstoreID;
+                    customer.uid = fstoreID;
                     db.collection('customers').doc(fstoreID).update(customer);
                     this.customers = [...this.customers, customer];
                   })
@@ -122,7 +122,7 @@ export default {
       var db = firebase.firestore();
       try {
         await db.collection('customers').doc(id).delete();
-        this.customers = this.customers.filter(customer => customer.id !== id);
+        this.customers = this.customers.filter(customer => customer.uid !== id);
       } catch (error) {console.log(error)
       }
     },
@@ -130,7 +130,7 @@ export default {
       var db = firebase.firestore();
       try {
         await db.collection('orders').doc(id).delete();
-        this.orders = this.orders.filter(order => order.id !== id);
+        this.orders = this.orders.filter(order => order.OrderID !== id);
       } catch (error) {console.log(error)
       }
     },
@@ -139,7 +139,7 @@ export default {
       var db = firebase.firestore();
       try {
         await db.collection('customers').doc(id).update(updatedCustomer);
-        this.customers = this.customers.map(customer => (customer.id === id, customer));
+        this.customers = this.customers.map(customer => (customer.uid === id, customer));
       } catch (error) {console.log(error)
       }
     },
@@ -161,7 +161,7 @@ export default {
           this.customers.length > 0
               ? this.customers[this.customers.length - 1].id
               : 0;
-      customer.id = String(parseInt(previousCustomerId)+1)
+      customer.uid = String(parseInt(previousCustomerId)+1)
     },
   }
 }
