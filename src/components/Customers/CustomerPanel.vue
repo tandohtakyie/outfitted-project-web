@@ -25,11 +25,17 @@
         </td>
         <td v-else>{{ customer.email }}</td>
         <table>
-            <tr v-for="order in getOrders(customer)" :key="order.orderTime">
-                <td>
-                    <label>Success: {{order.isSuccess}}</label>
-                </td>
-                <td>
+            <tr v-for="order in getOrders(customer)" :key="order.OrderID">
+              <td v-if="editing === customer.uid">
+                <select
+                    id="statusMenu"
+                    v-model="order.orderStatus">
+                  <option value="sent">Order sent</option>
+                  <option value="pending">Order Pending</option>
+                  <option value="cancelled">Order cancelled</option>
+                </select>
+              </td>
+                <td v-else>
                     <label>{{order.orderStatus}}</label>
                 </td>
               <td>
@@ -37,19 +43,10 @@
                     {{product.name}}
                   </li>
               </td>
-              <td>
-                <label>Set new order status</label>
-                <select id="statusMenu">
-                  <option value="sent">Order sent</option>
-                  <option value="pending">Order Pending</option>
-                  <option value="cancelled">Order cancelled</option>
-                </select>
-              </td>
-
             </tr>
         </table>
         <td v-if="editing === customer.uid">
-          <button @click="editCustomer(customer)">Save</button>
+          <button @click="sendUpdate(customer, order)">Save</button>
         </td>
         <td v-else>
           <button @click="editMode(customer.uid)">Edit</button>
@@ -80,7 +77,7 @@ export default {
       this.editing = id
     },
 
-    editCustomer(customer) {
+    sendUpdate(customer) {
       if (customer.name === '' ) return
       this.$emit('edit:customer', customer.uid, customer)
       this.editing = null
@@ -91,7 +88,7 @@ export default {
     getProducts(order){
       let productArray = [];
       for (var i = 0; i < order.OrderedProductIDs.length; i++) {
-        productArray[i] = this.products.find(element => element.id == order.OrderedProductIDs[i]);
+        productArray[i] = this.products.find(element => element.id === order.OrderedProductIDs[i]);
       }
       return productArray;
     },
