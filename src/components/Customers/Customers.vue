@@ -8,7 +8,6 @@
                     @delete:order="deleteOrder"
                     @edit:order="editOrder"
                     :products="products"
-
     />
   </div>
 </template>
@@ -41,6 +40,7 @@ export default {
   mounted() {
     this.getAllCustomers()
     this.getAllOrders()
+    this.getAllProducts()
   },
 
   methods: {

@@ -35,7 +35,7 @@
                 </td>
               <td>
                   <li v-for = "product in getProducts(order)" :key="product.id">
-                    {{product.supplier}}
+                    {{product.name}}
                   </li>
               </td>
 
@@ -82,9 +82,9 @@ export default {
       return this.orders.filter(order => order.orderBy === customer.uid)
     },
     getProducts(order){
-      var productArray = [];
+      let productArray = [];
       for (var i = 0; i < order.OrderedProductIDs.length; i++) {
-        productArray[i] = this.products.filter(product => product.id === order.OrderedProductIDs[i])
+        productArray[i] = this.products.filter(product => product.id === order.OrderedProductIDs[i]).slice();
       }
       console.log(productArray);
       return productArray;
