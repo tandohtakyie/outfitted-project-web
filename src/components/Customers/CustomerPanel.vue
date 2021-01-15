@@ -80,6 +80,8 @@ export default {
     sendUpdate(customer) {
       if (customer.name === '' ) return
       this.$emit('edit:customer', customer.uid, customer)
+      this.getOrders(customer).forEach(order =>  this.$emit('edit:order', order.OrderID, order));
+
       this.editing = null
     },
     getOrders(customer){

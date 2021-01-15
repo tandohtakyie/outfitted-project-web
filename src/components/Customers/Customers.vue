@@ -144,11 +144,13 @@ export default {
       }
     },
     async editOrder(id, updatedOrder) {
+      console.log(updatedOrder.orderStatus)
+
       id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
       var db = firebase.firestore();
       try {
         await db.collection('orders').doc(id).update(updatedOrder);
-        this.orders = this.orders.map(order => (order.id === id, order));
+        this.orders = this.orders.map(order => (order.OrderID === id, order));
       } catch (error) {console.log(error)
       }
     },
