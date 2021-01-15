@@ -1,8 +1,5 @@
 <template>
   <div>
-    <product-form :products="products" @add:product="createProduct"
-    :categories="categories" v-if="categories.length"
-    />
     <product-panel :products="products"
                  @delete:product="deleteProduct"
                  @edit:product="editProduct"
@@ -15,6 +12,10 @@
       v-b-tooltip.hover title="Add Product">
         <i class="fa fa-plus"></i>
     </b-button>
+
+    <product-form :products="products" @add:product="createProduct"
+    :categories="categories" v-if="categories.length"
+    />
   </div>
 </template>
 

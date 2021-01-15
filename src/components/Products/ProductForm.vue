@@ -57,7 +57,7 @@
                         :class="{ 'has-error': submission && emptySupplierName }"
                   />
                   <label>Product category</label>
-                  <select id="categoryMenu" type="text" v-model="selected" class="custom-select" :class="{'has-error': submission && emptySupplierName}">
+                  <select id="categoryMenu" type="text" class="custom-select" :class="{'has-error': submission && emptySupplierName}">
                     <option v-for="option in this.categories" v-bind:key="option.id" :value="option.name">
                       {{ option.name }}
                     </option>
@@ -132,7 +132,6 @@ export default {
     }
   },
   mounted() {
-    this.fillDropdown();
   },
   methods: {
     manageSubmit() {
@@ -162,12 +161,6 @@ export default {
         discount: 0,
       }
       this.submission = false
-    },
-    fillDropdown() {
-      var select = document.getElementById("categoryMenu");
-      for(var index in this.categories) {
-        select.options[select.options.length] = new Option(this.categories[index].name, this.categories[index].name);
-      }
     },
     clearStatus() {
       this.success = false

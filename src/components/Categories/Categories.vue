@@ -1,10 +1,19 @@
 <template>
   <div>
-    <category-form :categories="categories" @add:category="createCategory"/>
     <category-panel :categories="categories"
                  @delete:category="deleteCategory"
                  @edit:category="editCategory"
     />
+    <!-- Button trigger modal -->
+    <b-button
+      v-b-modal.addCategoryModal
+      variant="btn-blue-outfitted"
+      class="btn btn-blue-outfitted btn-hover btn-fab-right-bottom"
+      v-b-tooltip.hover title="Add Category">
+        <i class="fa fa-plus"></i>
+    </b-button>
+
+    <category-form :categories="categories" @add:category="createCategory"/>
   </div>
 </template>
 

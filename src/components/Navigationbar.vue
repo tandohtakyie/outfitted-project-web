@@ -85,8 +85,8 @@ name: "Navigationbar",
       }
 
     .navbar{
-      background-color: white;
-      border-bottom: 1px solid #2321275c;
+      background-color: white!important;
+      border-bottom: 1px solid #2321275c!important;
       
       ul.navbar-nav{
         margin: auto;
@@ -100,15 +100,15 @@ name: "Navigationbar",
             border-bottom: 2px solid #23212700;
 
             &.router-link-active{
-              color: #232127;
-              font-weight: bold;
-              transition: 1s;
+              color: #232127!important;
+              font-weight: bold!important;
+              transition: 1s!important;
             }
           }
           &:hover{
             a{
-              border-bottom: 2px solid #232127;
-              transition: 1s;
+              border-bottom: 2px solid #232127!important;
+              transition: 1s!important;
             }
           }
         }
