@@ -1,8 +1,15 @@
 <template>
-  <div>
-    <HomeStatistics
-      :products="products" v-if="products.length"
-    />
+  <div class="w-100">
+    <b-tabs content-class="mt-5" fill>
+      <b-tab title="Products with low stock" active>
+        <HomeStatistics
+          :products="products" v-if="products.length"
+        />
+      </b-tab>
+      <b-tab title="Amount of products per supplier">
+        <p>I'm the second tab</p>
+        </b-tab>
+  </b-tabs>
   </div>
 </template>
 
@@ -36,7 +43,6 @@ name: "Home",
       }
     },
   }
-
 }
 </script>
 

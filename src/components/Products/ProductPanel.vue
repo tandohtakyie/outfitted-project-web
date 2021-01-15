@@ -1,8 +1,8 @@
 <template>
   <div id="product-panel">
     <p v-if="products.length < 1" class="empty-table">No products found</p>
-    <table v-else>
-      <thead>
+    <table class="table table-striped table-bordered" v-else>
+      <thead class="thead-dark">
       <tr>
         <th>Product name</th>
         <th>Available stock</th>
@@ -54,16 +54,22 @@
         <td v-else>{{ product.price }}</td>
         <td v-if="editing === product.id">
           <label>
-            <input type ="text" v-model="product.discount">
+            <input type ="text" v-model.number="product.discount">
           </label>
         </td>
         <td v-else>{{ product.discount }}</td>
         <td v-if="editing === product.id">
-          <button @click="editProduct(product)">Save</button>
+          <button @click="editProduct(product)" class="btn-table btn-primary btn-sm">
+            <font-awesome-icon icon="save" />
+          </button>
         </td>
         <td v-else>
-          <button @click="editMode(product.id)">Edit</button>
-          <button @click="$emit('delete:product', product)">Delete</button>
+          <button @click="editMode(product.id)" class="btn-table btn btn-success btn-sm">
+            <font-awesome-icon icon="edit" />
+          </button>
+          <button @click="$emit('delete:product', product)" class="btn-table btn btn-danger btn-sm">
+            <font-awesome-icon icon="trash" />
+          </button>
         </td>
       </tr>
       </tbody>

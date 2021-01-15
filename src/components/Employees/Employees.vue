@@ -1,11 +1,19 @@
 <template>
-<div>
+  <div>
+    <admin-panel :employees="employees"
+                  @delete:employee="deleteEmployee"
+                  @edit:employee="editEmployee"/>
+    
+    <!-- Button trigger modal -->
+    <b-button
+      v-b-modal.addEmployeeModal
+      variant="btn-blue-outfitted"
+      class="btn btn-blue-outfitted btn-hover btn-fab-right-bottom"
+      v-b-tooltip.hover title="Add Employee">
+        <i class="fa fa-plus"></i>
+    </b-button>
     <employer-form :employees="employees" type="add" @add:employee="createEmployee"/>
-      <admin-panel :employees="employees"
-                   @delete:employee="deleteEmployee"
-                   @edit:employee="editEmployee"
-      />
-</div>
+  </div>
 </template>
 
 <script>
@@ -85,9 +93,6 @@ export default {
               console.log(errorCode, errorMessage);
               // ..
             });
-
-
-
         })
         .catch((error) => {
           var errorCode = error.code;
