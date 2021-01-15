@@ -7,7 +7,6 @@
         <th>Customer name</th>
         <th>Customer email</th>
         <th>Order status</th>
-        <th>Products</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -37,6 +36,14 @@
                   <li v-for = "product in getProducts(order)" :key="product.id">
                     {{product.name}}
                   </li>
+              </td>
+              <td>
+                <label>Set new order status</label>
+                <select id="statusMenu">
+                  <option value="sent">Order sent</option>
+                  <option value="pending">Order Pending</option>
+                  <option value="cancelled">Order cancelled</option>
+                </select>
               </td>
 
             </tr>
@@ -86,9 +93,11 @@ export default {
       for (var i = 0; i < order.OrderedProductIDs.length; i++) {
         productArray[i] = this.products.find(element => element.id == order.OrderedProductIDs[i]);
       }
-      console.log('source',productArray);
       return productArray;
     },
+    selectStatus(order){
+      document.getElementById("statusMenu").value = order.orderStatus;
+    }
   },
   computed: {
 
