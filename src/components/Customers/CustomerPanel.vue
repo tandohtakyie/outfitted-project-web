@@ -11,35 +11,35 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="customer in customers" :key="customer.id">
-        <td v-if="editing === customer.id">
+      <tr v-for="customer in customers" :key="customer.uid">
+        <td v-if="editing === customer.uid">
           <label>
             <input type ="text" v-model="customer.name">
           </label>
         </td>
         <td v-else>{{ customer.name }}</td>
-        <td v-if="editing === customer.id">
+        <td v-if="editing === customer.uid">
           <label>
             <input type ="text" v-model="customer.email">
           </label>
         </td>
         <td v-else>{{ customer.email }}</td>
-        <table>
-            <tr v-for="order in Orders()" :key="order.orderBy">
-                <td>
-                    <label>Success: {{order.isSuccess}}</label>
-                </td>
-                <td>
-                    <label>{{order.orderStatus}}</label>
-                </td>
-            </tr>
-        </table>
-        <td v-if="editing === customer.id">
+<!--        <table>-->
+<!--            <tr v-for="order in Orders()" :key="order.orderBy">-->
+<!--                <td>-->
+<!--                    <label>Success: {{order.isSuccess}}</label>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <label>{{order.orderStatus}}</label>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </table>-->
+        <td v-if="editing === customer.uid">
           <button @click="editCustomer(customer)">Save</button>
         </td>
         <td v-else>
-          <button @click="editMode(customer.id)">Edit</button>
-          <button @click="$emit('delete:customer', customer.id)">Delete</button>
+          <button @click="editMode(customer.uid)">Edit</button>
+          <button @click="$emit('delete:customer', customer.uid)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -67,7 +67,7 @@ export default {
 
     editCustomer(customer) {
       if (customer.name === '' ) return
-      this.$emit('edit:customer', customer.id, customer)
+      this.$emit('edit:customer', customer.uid, customer)
       this.editing = null
     },
     Orders(){

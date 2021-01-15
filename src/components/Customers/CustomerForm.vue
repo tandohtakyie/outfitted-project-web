@@ -48,6 +48,7 @@ export default {
       emptyField: false,
       success: false,
       customer: {
+        uid: '',
         name: '',
         email: '',
         password: ''
@@ -68,6 +69,7 @@ export default {
       this.success = true
       this.$emit('add:customer', this.customer)
       this.customer = {
+        uid: "",
         name: "",
         email: "",
         password: ""
