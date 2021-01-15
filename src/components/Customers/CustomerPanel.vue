@@ -84,9 +84,9 @@ export default {
     getProducts(order){
       let productArray = [];
       for (var i = 0; i < order.OrderedProductIDs.length; i++) {
-        productArray[i] = this.products.filter(product => product.id === order.OrderedProductIDs[i]).slice();
+        productArray[i] = this.products.find(element => element.id == order.OrderedProductIDs[i]);
       }
-      console.log(productArray);
+      console.log('source',productArray);
       return productArray;
     },
   },
