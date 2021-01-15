@@ -73,7 +73,7 @@ export default {
         if (user) {
           // User is signed in.
           this.loggedOut = false;
-          router.push({path: '/dashboard'});
+          if (this.$route.path !== "/dashboard"){router.push({path: '/dashboard'});}
         } else {
           // No user is signed in.
           this.loggedOut = true;
@@ -84,7 +84,10 @@ export default {
       firebase
           .auth()
           .signInWithEmailAndPassword(this.form.email, this.form.password)
-          .then(function() {router.push({path: 'dashboard'});
+          .then(function() {
+            if (this.$route.path !== "/dashboard"){
+              router.push({path: '/dashboard'});
+            }
           })
           .catch(err => {
             this.error = err.message;
