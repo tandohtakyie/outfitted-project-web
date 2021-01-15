@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-panel">
+  <div id="employer-panel">
     <p v-if="employees.length < 1" class="empty-table">No employees found</p>
     <table v-else>
       <thead>
