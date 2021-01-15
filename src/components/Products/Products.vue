@@ -7,6 +7,14 @@
                  @delete:product="deleteProduct"
                  @edit:product="editProduct"
     />
+    <!-- Button trigger modal -->
+    <b-button
+      v-b-modal.addProductModal
+      variant="btn-blue-outfitted"
+      class="btn btn-blue-outfitted btn-hover btn-fab-right-bottom"
+      v-b-tooltip.hover title="Add Product">
+        <i class="fa fa-plus"></i>
+    </b-button>
   </div>
 </template>
 

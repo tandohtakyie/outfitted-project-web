@@ -19,6 +19,12 @@ body {
   }
 }
 
+header{
+  > h5.modal-title{
+    color: white!important;
+  }
+}
+
 button{
   border: none;
 
@@ -40,6 +46,11 @@ button{
   &.btn-blue-outfitted{
     background-color: #232127;
     color: white;
+
+    &:focus, &:active{
+      background-color: #232127;
+      border: 0;
+    }
   }
   
   &.btn-hover{

@@ -1,77 +1,107 @@
 <template>
-  <div id="product-form">
-    <form @submit.prevent="manageSubmit">
-      <label>Product name</label>
-      <label>
-        <input class="productNameInput"
-               ref = "nameField"
-               v-model="product.name"
-               type="text"
-               :class="{ 'has-error': submission && emptyName }"
-        />
-      </label>
-      <label>Stock</label>
-      <label>
-        <input class="productStockInput"
-               ref = "productStockField"
-               v-model.number="product.stock"
-               type="number"
-               :class="{ 'has-error': submission && emptyStock }"
-        />
-      </label>
-      <label>Price</label>
-      <label>
-        <input class="productPriceInput"
-               ref = "productPriceField"
-               v-model.number="product.price"
-               type="number"
-               :class="{ 'has-error': submission && emptyName }"
-        />
-      </label>
-      <label>Supplier</label>
-      <label>
-        <input class="supplierNameInput"
-               ref = "supplierField"
-               v-model="product.supplier"
-               type="text"
-               :class="{ 'has-error': submission && emptySupplierName }"
-        />
-      </label>
-      <div id="second row">
+  <div>
+    <b-modal id="addProductModal"
+             title="Add new product"
+             header-bg-variant="dark"
+             header-text-variant="light">
+      
+      <b-container fluid>
+        <b-row class="mb-1">
+          <b-col>
+            <div id="product-form">
+              <form @submit.prevent="manageSubmit">
+                <label>Product name</label>
+                <label>
+                  <input class="productNameInput"
+                        ref = "nameField"
+                        v-model="product.name"
+                        type="text"
+                        :class="{ 'has-error': submission && emptyName }"
+                  />
+                </label>
+                <label>Stock</label>
+                <label>
+                  <input class="productStockInput"
+                        ref = "productStockField"
+                        v-model.number="product.stock"
+                        type="number"
+                        :class="{ 'has-error': submission && emptyStock }"
+                  />
+                </label>
+                <label>Price</label>
+                <label>
+                  <input class="productPriceInput"
+                        ref = "productPriceField"
+                        v-model.number="product.price"
+                        type="number"
+                        :class="{ 'has-error': submission && emptyName }"
+                  />
+                </label>
+                <label>Supplier</label>
+                <label>
+                  <input class="supplierNameInput"
+                        ref = "supplierField"
+                        v-model="product.supplier"
+                        type="text"
+                        :class="{ 'has-error': submission && emptySupplierName }"
+                  />
+                </label>
+                <div id="second row">
 
-      <label>
-        <label>Product description</label>
-        <textarea class="descriptionInput"
-               ref = "descriptionField"
-               v-model="product.productDescription"
-               type="text"
-               :class="{ 'has-error': submission && emptySupplierName }"
-        />
-        <label>Product category</label>
-        <select id="categoryMenu"
-                  ref = "categoryField"
-                  v-model="product.category"
-                  type="text"
-                  :class="{ 'has-error': submission && emptySupplierName  }"
-        />
-        <label>Product discount percentage</label>
-        <input class="discountInput"
-                ref = "discountField"
-                v-model.number="product.discount"
-                type="number"
-                :class="{ 'has-error': submission}"
-        />
-      </label>
-      </div>
-      <div class = "imageChoser">
-        <label>Choose a product image</label>
-        <input type="file" accept="image/*" @change="chosenImage ">
-      </div>
-      <p v-if="submission && emptyField" class="failure-message">
-        Please fill out the required fields ! </p>
-      <p v-else-if="success" class="acceptance-message">Product has been successfully added!</p>
-      <button>Add product</button>
-    </form>
+                <label>
+                  <label>Product description</label>
+                  <textarea class="descriptionInput"
+                        ref = "descriptionField"
+                        v-model="product.productDescription"
+                        type="text"
+                        :class="{ 'has-error': submission && emptySupplierName }"
+                  />
+                  <label>Product category</label>
+                  <select id="categoryMenu" type="text" v-model="selected" class="custom-select" :class="{'has-error': submission && emptySupplierName}">
+                    <option v-for="option in this.categories" v-bind:key="option.id" :value="option.name">
+                      {{ option.name }}
+                    </option>
+                  </select>
+                  <label>Product discount percentage</label>
+                  <input class="discountInput"
+                          ref = "discountField"
+                          v-model.number="product.discount"
+                          type="number"
+                          :class="{ 'has-error': submission}"
+                  />
+                </label>
+                </div>
+                <div class = "imageChoser">
+                  <label>Choose a product image</label>
+                  <input type="file" accept="image/*" @change="chosenImage ">
+                </div>
+                <p v-if="submission && emptyField" class="failure-message">
+                  Please fill out the required fields ! </p>
+                <p v-else-if="success" class="acceptance-message">Product has been successfully added!</p>
+                <!-- <button>Add product</button> -->
+              </form>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+      <template #modal-footer>
+        <div class="w-100">
+          <b-button
+            variant="primary"
+            size="lg"
+            @click="$bvModal.hide('addProductModal')">
+            Close
+          </b-button>
+          <b-button
+              size="lg"
+              variant="success"
+              class="float-right"
+              @click="manageSubmit()">
+            Add
+          </b-button>
+        </div>
+      </template>
+    </b-modal>
   </div>
 </template>
 
