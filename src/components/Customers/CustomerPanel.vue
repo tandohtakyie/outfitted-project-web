@@ -78,7 +78,6 @@ export default {
     },
 
     sendUpdate(customer) {
-      console.log(customer)
       if (customer.name === '' ) return
       this.$emit('edit:customer', customer.uid, customer)
       this.getOrders(customer).forEach(order =>  this.$emit('edit:order', order.OrderID, order));
@@ -86,7 +85,6 @@ export default {
       this.editing = null
     },
     getOrders(customer){
-      console.log(customer);
       return this.orders.filter(order => order.orderBy === customer.uid)
     },
     getProducts(order){

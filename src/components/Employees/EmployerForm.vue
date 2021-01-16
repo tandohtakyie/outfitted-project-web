@@ -75,8 +75,8 @@
     <p v-else-if="failure && submission && invalidEmail" class="failure-message">
       Please enter a valid email address! </p>
     <p v-else-if="success" class="acceptance-message">Employee has been successfully added!</p>
-    <button v-if="type == 'settings'">Edit Employee</button>
-    <button v-if="type == 'add'">Add Employee</button>
+    <button v-if="type === 'settings'">Edit Employee</button>
+    <button v-if="type === 'add'">Add Employee</button>
      </form>
   </div>
 </template>
@@ -111,10 +111,9 @@ import firebase from "firebase";
       }
     },
     mounted: function(){
-        if(this.type == "settings"){
+        if(this.type === "settings"){
             delete this.employee.password;
             this.getLoggedEmployee();
-            console.log(this.employee);
         }
     },
     methods: {
@@ -122,16 +121,13 @@ import firebase from "firebase";
             var db = firebase.firestore();
             var loggedIn = firebase.auth().currentUser;
 
-            console.log('logged',loggedIn);
             const docRef = db.collection('accounts');
             const snapshot = await docRef.where('uid', '==', loggedIn.uid).get();
             if (snapshot.empty) {
-              console.log('No matching documents.');
               return;
             }
 
             snapshot.forEach(doc => {
-              console.log(doc.id, '=>', doc.data());
               var employee = doc.data();
               this.employee.name = employee.name;
               this.employee.email = employee.email;
@@ -160,8 +156,7 @@ import firebase from "firebase";
         }
 
         this.success = true
-        if(this.type == "settings"){
-            console.log("great");
+        if(this.type === "settings"){
             this.$emit('edit:employee', this.employee.id, this.employee)
         }
         else this.$emit('add:employee', this.employee)
