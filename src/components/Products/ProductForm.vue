@@ -2,6 +2,8 @@
   <div>
     <b-modal id="addProductModal"
              title="Add new product"
+             size="lg"
+             scrollable
              header-bg-variant="dark"
              header-text-variant="light">
       
@@ -10,45 +12,56 @@
           <b-col>
             <div id="product-form">
               <form @submit.prevent="manageSubmit">
-                <label>Product name</label>
-                <label>
-                  <input class="productNameInput"
-                        ref = "nameField"
-                        v-model="product.name"
-                        type="text"
-                        :class="{ 'has-error': submission && emptyName }"
-                  />
-                </label>
-                <label>Stock</label>
-                <label>
-                  <input class="productStockInput"
-                        ref = "productStockField"
-                        v-model.number="product.stock"
-                        type="number"
-                        :class="{ 'has-error': submission && emptyStock }"
-                  />
-                </label>
-                <label>Price</label>
-                <label>
-                  <input class="productPriceInput"
-                        ref = "productPriceField"
-                        v-model.number="product.price"
-                        type="number"
-                        :class="{ 'has-error': submission && emptyName }"
-                  />
-                </label>
-                <label>Supplier</label>
-                <label>
+                <div class="form-group">
+                  <label>Product name</label>
+                    <input class="productNameInput"
+                          ref = "nameField"
+                          v-model="product.name"
+                          type="text"
+                          :class="{ 'has-error': submission && emptyName }"
+                    />
+                </div>
+                <div class="row">
+                  <div class="form-group col">
+                  <label>Stock</label>
+                    <input class="productStockInput"
+                          ref = "productStockField"
+                          v-model.number="product.stock"
+                          type="number"
+                          :class="{ 'has-error': submission && emptyStock }"
+                    />
+                  </div>
+                  <div class="form-group col">
+                  <label>Price</label>
+                    <input class="productPriceInput"
+                          ref = "productPriceField"
+                          v-model.number="product.price"
+                          type="number"
+                          :class="{ 'has-error': submission && emptyName }"
+                    />
+                  </div>
+                  <div class="form-group col">
+                    <label>Discount percentage</label>
+                    <input class="discountInput"
+                            ref = "discountField"
+                            v-model.number="product.discount"
+                            type="number"
+                            min="0"
+                            max="100"
+                            :class="{ 'has-error': submission}"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Supplier</label>
                   <input class="supplierNameInput"
                         ref = "supplierField"
                         v-model="product.supplier"
                         type="text"
                         :class="{ 'has-error': submission && emptySupplierName }"
                   />
-                </label>
-                <div id="second row">
-
-                <label>
+                </div>
+                <div class="form-group">
                   <label>Product description</label>
                   <textarea class="descriptionInput"
                         ref = "descriptionField"
@@ -56,24 +69,20 @@
                         type="text"
                         :class="{ 'has-error': submission && emptySupplierName }"
                   />
+                </div>
+                <div class="form-group">
                   <label>Product category</label>
                   <select id="categoryMenu" type="text" class="custom-select" :class="{'has-error': submission && emptySupplierName}">
                     <option v-for="option in this.categories" v-bind:key="option.id" :value="option.name">
                       {{ option.name }}
                     </option>
                   </select>
-                  <label>Product discount percentage</label>
-                  <input class="discountInput"
-                          ref = "discountField"
-                          v-model.number="product.discount"
-                          type="number"
-                          :class="{ 'has-error': submission}"
-                  />
-                </label>
                 </div>
-                <div class = "imageChoser">
-                  <label>Choose a product image</label>
-                  <input type="file" accept="image/*" @change="chosenImage ">
+                <div class="form-group">
+                  <div class="imageChoser">
+                    <label>Choose an image product</label>
+                    <input type="file" accept="image/*" @change="chosenImage ">
+                  </div>
                 </div>
                 <p v-if="submission && emptyField" class="failure-message">
                   Please fill out the required fields ! </p>

@@ -71,18 +71,14 @@ name: "Navigationbar",
     };
   }
 };
-
 </script>
 <style lang="scss">
   .header{
     img.outfitted-logo {
-        width: 85px;
-        height: 80px;
-        position: relative;
-        text-align: left;
-        display: block;
-        background-color: rgb(255, 255, 255);
-      }
+      width: 85px;
+      height: 80px;
+      margin: 15px 0px;
+    }
 
     .navbar{
       background-color: white!important;

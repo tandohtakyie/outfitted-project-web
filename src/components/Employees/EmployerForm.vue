@@ -4,6 +4,8 @@
     <!-- Modal -->
     <b-modal id="addEmployeeModal"
              title="Add new employee"
+             size="lg"
+             scrollable
              header-bg-variant="dark"
              header-text-variant="light">
       
@@ -12,74 +14,73 @@
           <b-col>
             <div id="employer-form">
               <form @submit.prevent="manageSubmit">
+                <div class="form-group">
                   <label>Employee name</label>
-              <label>
-                <input class="employeeInput"
-                    ref = "nameField"
-                    v-model="employee.name"
-                    type="text"
-                    :class="{ 'has-error': submission && emptyName }"
-                />
-              </label>
-              <label>Employee email</label>
-              <label>
-                <input class="employeeInput"
-                    ref = "emailField"
-                    v-model="employee.email"
+                  <input class="employeeInput"
+                      ref = "nameField"
+                      v-model="employee.name"
                       type="text"
-                      :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
-                />
-              </label>
-              <div v-if="type !== 'settings'">
-                  <label>Employee password</label>
-                  <label>
+                      :class="{ 'has-error': submission && emptyName }"
+                  />
+                </div>
+                <div class="row">
+                  <div class="form-group col">
+                    <label>Employee email</label>
+                    <input class="employeeInput"
+                        ref = "emailField"
+                        v-model="employee.email"
+                          type="text"
+                          :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
+                    />
+                  </div>
+                  <div class="form-group col" v-if="type !== 'settings'">
+                    <label>Employee password</label>
                     <input class="employeeInput"
                           ref = "passwordField"
                           v-model="employee.password"
                           type="text"
                           :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
                     />
-                  </label>
-              </div>
-              <div id="seccond-row ">
-              <label>Street</label>
-              <label>
-                <input class="employeeInput"
-                      ref = "streetField"
-                      v-model="employee.address.street"
-                      type="text"
-                      :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
-                />
-              </label>
-              <label>City</label>
-              <label>
-                <input class="employeeInput"
-                      ref = "cityField"
-                      v-model="employee.address.city"
-                      type="text"
-                      :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
-                />
-              </label>
-              <label>State</label>
-              <label>
-                <input class="employeeInput"
-                      ref = "stateField"
-                      v-model="employee.address.state"
-                      type="text"
-                      :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
-                />
-              </label>
-              <label>Postal code</label>
-              <label>
-                <input class="employeeInput"
-                      ref = "postalCodeField"
-                      v-model="employee.address.postalCode"
-                      type="text"
-                      :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
-                />
-              </label>
-
-              </div>
+                  </div>
+                </div>
+                <div class="jumbotron row mt-3">
+                  <div class="form-group">
+                    <label>Street</label>
+                    <input class="employeeInput"
+                          ref = "streetField"
+                          v-model="employee.address.street"
+                          type="text"
+                          :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
+                    />
+                  </div>
+                  <div class="form-group col">
+                    <label>City</label>
+                    <input class="employeeInput"
+                          ref = "cityField"
+                          v-model="employee.address.city"
+                          type="text"
+                          :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
+                    />
+                  </div>
+                  <div class="form-group col">
+                    <label>State</label>
+                    <input class="employeeInput"
+                          ref = "stateField"
+                          v-model="employee.address.state"
+                          type="text"
+                          :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
+                    />
+                  </div>
+                  <div class="form-group col">
+                    <label>Postal code</label>
+                    <input class="employeeInput"
+                          ref = "postalCodeField"
+                          v-model="employee.address.postalCode"
+                          type="text"
+                          :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
+                    />
+                  </div>
+                </div>
               <p v-if="failure && submission && emptyField" class="failure-message">
                 Please fill out the required fields ! </p>
               <p v-else-if="failure && submission && invalidEmail" class="failure-message">
