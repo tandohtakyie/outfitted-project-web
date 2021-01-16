@@ -1,9 +1,9 @@
 <template>
   <div>
-    <admin-panel :employees="employees"
-                  @delete:employee="deleteEmployee"
-                  @edit:employee="editEmployee"/>
-    
+    <employer-panel :employees="employees"
+                    @delete:employee="deleteEmployee"
+                    @edit:employee="editEmployee"
+    />
     <!-- Button trigger modal -->
     <b-button
       v-b-modal.addEmployeeModal
