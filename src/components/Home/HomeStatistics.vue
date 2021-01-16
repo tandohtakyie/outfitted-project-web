@@ -1,15 +1,8 @@
 <template>
-  <div><h1>DASHBOARD COMING SOON</h1>
+  <div><h1>DASHBOARD</h1>
     <p v-if="lowStockProductArray.length < 1" class="empty-table">No stock found</p>
     <div v-else>
       <column-chart :data="lowStockProductArray"/>
-<!--      <column-chart >-->
-<!--      <tr v-for="product in lowStockProductArray" :key="product.id">-->
-<!--        :data="[['product.name', product.stock]]"-->
-<!--      </tr>-->
-<!--      </column-chart>-->
-<!--      </div>-->
-
     </div>
   </div>
 </template>
