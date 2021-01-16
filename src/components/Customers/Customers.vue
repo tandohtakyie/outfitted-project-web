@@ -1,6 +1,5 @@
 <template>
   <div>
-    <customer-form :customers="customers" @add:customer="createCustomer"/>
     <customer-panel :customers="customers"
                     @delete:customer="deleteCustomer"
                     @edit:customer="editCustomer"
@@ -14,13 +13,11 @@
 
 <script>
 import CustomerPanel from "@/components/Customers/CustomerPanel";
-import CustomerForm from "@/components/Customers/CustomerForm";
 import firebase from "firebase";
 
 export default {
   name: 'customersComponent',
   components: {
-    CustomerForm,
     CustomerPanel,
   },
   data() {
@@ -79,44 +76,6 @@ export default {
       } catch (error) {
         console.error(error)
       }
-    },
-    async createCustomer(customer) {
-      var db = firebase.firestore();
-      try {
-        //register with email and password
-        firebase.auth().createUserWithEmailAndPassword(customer.email, customer.password)
-            .then((user) => {
-              //get registered uid
-              //use id in firebase
-              console.log(user);
-              delete customer.password;
-              customer.uid = user.user.uid;
-              db.collection('customers').add(customer)
-                  .then((empReturn) => {
-                    console.log(empReturn);
-                    var fstoreID = empReturn.id;
-                    console.log(fstoreID);
-                    customer.uid = fstoreID;
-                    db.collection('customers').doc(fstoreID).update(customer);
-                    this.customers = [...this.customers, customer];
-                  })
-                  .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(errorCode, errorMessage);
-                    // ..
-                  });
-
-
-
-            })
-            .catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log(errorCode, errorMessage);
-              // ..
-            });
-      }catch (error) {console.log(error)}
     },
     async deleteCustomer(id) {
       var db = firebase.firestore();

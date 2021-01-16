@@ -4,26 +4,29 @@
     <table v-else>
       <thead>
       <tr>
-        <th>Customer name</th>
-        <th>Customer email</th>
-        <th>Order status</th>
+        <th>Customer details</th>
+        <th>Order details</th>
         <th>Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="customer in customers" :key="customer.uid">
-        <td v-if="editing === customer.uid">
+        <td>
+          <ul class="no-bullets">
+          <li v-if="editing === customer.uid">
           <label>
             <input type ="text" v-model="customer.name">
           </label>
-        </td>
-        <td v-else>{{ customer.name }}</td>
-        <td v-if="editing === customer.uid">
+        </li>
+        <li v-else>{{"Name: " + customer.name }}</li>
+        <li v-if="editing === customer.uid">
           <label>
             <input type ="text" v-model="customer.email">
           </label>
+        </li>
+        <li v-else>{{"Email: " +customer.email }}</li>
+          </ul>
         </td>
-        <td v-else>{{ customer.email }}</td>
         <table>
             <tr v-for="order in getOrders(customer)" :key="order.OrderID">
               <td v-if="editing === customer.uid">
@@ -109,5 +112,10 @@ export default {
 <style scoped>
 button {
   margin: 0.5rem;
+}
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
 }
 </style>
