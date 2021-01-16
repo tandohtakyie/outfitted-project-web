@@ -15,7 +15,6 @@ import Settings from "@/components/Settings/Settings";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import 'bootstrap-css-only/css/bootstrap.min.css'
-import 'mdbvue/lib/css/mdb.min.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
 import {library} from "@fortawesome/fontawesome-svg-core";
