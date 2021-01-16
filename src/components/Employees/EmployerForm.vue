@@ -24,8 +24,9 @@
         <label>
           <input class="employeeInput"
                  ref = "passwordField"
+                 type = "password"
+                 minlength="8" required
                  v-model="employee.password"
-                 type="text"
                  :class="{ 'has-error': submission && (emptyEmail || invalidEmail)}"
           />
         </label>

@@ -86,12 +86,13 @@ export default {
       this.editing = null
     },
     getOrders(customer){
+      console.log(customer);
       return this.orders.filter(order => order.orderBy === customer.uid)
     },
     getProducts(order){
       let productArray = [];
       for (var i = 0; i < order.OrderedProductIDs.length; i++) {
-        productArray[i] = this.products.find(element => element.id === order.OrderedProductIDs[i]);
+        productArray[i] = this.products.find(product => product.id === order.OrderedProductIDs[i]);
       }
       return productArray;
     },
