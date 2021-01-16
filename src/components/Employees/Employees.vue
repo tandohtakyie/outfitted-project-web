@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import AdminPanel from '@/components/Employees/AdminPanel.vue'
+import EmployerPanel from '@/components/Employees/EmployerPanel.vue'
 import EmployerForm from '@/components/Employees/EmployerForm.vue'
 import firebase from "firebase";
 
 export default {
   name: 'employeeComponent',
   components: {
-    AdminPanel,
+    EmployerPanel,
     EmployerForm,
   },
   data() {

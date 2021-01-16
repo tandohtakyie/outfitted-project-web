@@ -177,7 +177,6 @@ export default {
       this.emptyField = false
     },
     chosenImage(event) {
-      console.log(event)
       this.product.productImage = event.target.files[0]
     },
   },

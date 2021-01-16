@@ -1,5 +1,5 @@
 <template>
-  <div id="admin-panel">
+  <div id="employer-panel">
     <p v-if="employees.length < 1" class="empty-table">No employees found</p>
     <table class="table table-striped table-bordered" v-else>
       <thead class="thead-dark">
@@ -81,7 +81,6 @@
 
       editEmployee(employee) {
         if (employee.name === '' || employee.email === '') return
-        console.log(employee);
         this.$emit('edit:employee', employee.id, employee)
         this.editing = null
       }
