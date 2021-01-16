@@ -1,6 +1,5 @@
 <template>
   <div class="full-screen">
-    <h1>DASHBOARD</h1>
     <p v-if="lowStockProductArray.length < 1" class="empty-table">No stock found</p>
     <div v-else>
       <column-chart :data="lowStockProductArray" :styles="{width: '100%', position: 'relative'}"/>
