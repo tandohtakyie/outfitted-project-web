@@ -94,6 +94,7 @@ name: "Navigationbar",
         li{
           a{
             border-bottom: 2px solid #23212700;
+            transition: 0.5s!important;
 
             &.router-link-active{
               color: #232127!important;
