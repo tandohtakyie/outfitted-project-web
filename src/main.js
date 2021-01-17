@@ -70,20 +70,20 @@ firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user);
 });
 
-// router.beforeEach((to, from, next) => {
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-//   const isAuthenticated = firebase.auth().currentUser;
-//   console.log("isauthenticated", isAuthenticated);
-//   if (requiresAuth && !isAuthenticated) {
-//     /* 
-//        Get authentication via App.vue,
-//        then redirect from there to dashboard (if auth valid) or to login (if auth not valid)
-//     */
-//     next("/");
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = firebase.auth().currentUser;
+  console.log("isauthenticated", isAuthenticated);
+  if (requiresAuth && !isAuthenticated) {
+    /*
+       Get authentication via App.vue,
+       then redirect from there to dashboard (if auth valid) or to login (if auth not valid)
+    */
+    next("/");
+  } else {
+    next();
+  }
+});
 
 new Vue({
   router,
