@@ -31,9 +31,6 @@ export default {
       products: [
 
       ],
-      addresses: [
-
-      ],
     }
   },
 
@@ -41,26 +38,34 @@ export default {
     this.getAllCustomers()
     this.getAllOrders()
     this.getAllProducts()
-    this.getAllAddresses()
+
   },
 
   methods: {
+  async setCustomer(data){
+  try{
+        var db = firebase.firestore();
+        const address = await db.collection('customers').doc(data.uid).collection('customerAddress').get();
+        data.address = [];
+        address.forEach(ad => {
+              data.address = [...data.address, ad.data()];
+        });
+        this.customers = [...this.customers, data];
+        console.log(this.customers);
+  }catch (error) {
+           console.error(error)
+         }
+  },
     async getAllCustomers() {
       try {
         var db = firebase.firestore();
         const customers = db.collection('customers');
         const snapshot = await customers.get();
         snapshot.forEach(doc => {
-          var newAddress = doc.data();
-          const address = db.collection('customers').id(doc.data().id).collection('customerAddress');
-          const snp = await address.get();
-
-          snp.forEach(ad => {
-            newAddress.address = [...newAddress.address, ad];
-          });
-
-          this.customers = [...this.customers, newAddress];
+            var data = doc.data();
+            this.setCustomer(data);
         });
+
       } catch (error) {
         console.error(error)
       }
@@ -115,6 +120,7 @@ export default {
       }
     },
     async editOrder(id, updatedOrder) {
+
       console.log(updatedOrder.orderStatus)
 
       id = id.replace(/\s/g, '');//for some strange reason, id gets malformed with spaces. this fixes that problem
