@@ -31,6 +31,9 @@ export default {
       products: [
 
       ],
+      addresses: [
+
+      ],
     }
   },
 
@@ -38,6 +41,7 @@ export default {
     this.getAllCustomers()
     this.getAllOrders()
     this.getAllProducts()
+    this.getAllAddresses()
   },
 
   methods: {
@@ -47,7 +51,15 @@ export default {
         const customers = db.collection('customers');
         const snapshot = await customers.get();
         snapshot.forEach(doc => {
-          this.customers = [...this.customers, doc.data()]
+          var newAddress = doc.data();
+          const address = db.collection('customers').id(doc.data().id).collection('customerAddress');
+          const snp = await address.get();
+
+          snp.forEach(ad => {
+            newAddress.address = [...newAddress.address, ad];
+          });
+
+          this.customers = [...this.customers, newAddress];
         });
       } catch (error) {
         console.error(error)
