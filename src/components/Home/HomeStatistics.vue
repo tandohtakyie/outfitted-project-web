@@ -1,10 +1,19 @@
 <template>
   <div class="full-screen">
-    <p v-if="lowStockProductArray.length < 1" class="empty-table">No stock found</p>
-    <div v-else>
-      <column-chart :data="lowStockProductArray" :styles="{width: '100%', position: 'relative'}"/>
-      <column-chart :data="productPriceArray" :styles="{width: '100%', position: 'relative'}"/>
-    </div>
+    <b-tabs content-class="mt-5" fill>
+      <b-tab title="Products with low stock" active>
+        <p v-if="lowStockProductArray.length < 1" class="empty-table">No stock found</p>
+        <div v-else>
+          <column-chart :data="lowStockProductArray" :styles="{width: '100%', position: 'relative'}"/>
+        </div>
+      </b-tab>
+      <b-tab title="Product prices">
+        <p v-if="lowStockProductArray.length < 1" class="empty-table">No stock found</p>
+        <div v-else>
+          <column-chart :data="productPriceArray" :styles="{width: '100%', position: 'relative'}"/>
+        </div>
+        </b-tab>
+    </b-tabs>
   </div>
 </template>
 
