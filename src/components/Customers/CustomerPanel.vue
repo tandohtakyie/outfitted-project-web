@@ -93,9 +93,11 @@
         this.editing = null
       },
       getOrders(customer){
+        console.log(customer)
         return this.orders.filter(order => order.orderBy === customer.uid)
       },
       getProducts(order){
+        console.log(order)
         let productArray = [];
         for (var i = 0; i < order.OrderedProductIDs.length; i++) {
           productArray[i] = this.products.find(product => product.id === order.OrderedProductIDs[i]);
