@@ -39,12 +39,22 @@
                 </select>
               </td>
                 <td v-else>
-                    <label>{{order.orderStatus}}</label>
+                    <li>{{order.orderStatus}}</li>
                 </td>
               <td>
                   <li v-for = "product in getProducts(order)" :key="product.id">
                     {{product.name}}
                   </li>
+              </td>
+              <td>
+                <ul class="no-bullets"  >
+                  <li><b>{{"Shipping info"}}</b></li>
+                  <li >{{"Country: " + order.country}}</li>
+                  <li>{{"City: " + order.cityOrTown}}</li>
+                  <li>{{"Postal code: " + order.postCode}}</li>
+                  <li>{{"Street: " + order.streetAndNumber}}</li>
+                  <li>{{"Contact number: " + order.phone}}</li>
+                </ul>
               </td>
             </tr>
         </table>
@@ -74,6 +84,7 @@
       customers: Array,
       orders: Array,
       products: Array,
+      address: Array,
     },
     data() {
       return {
@@ -93,17 +104,16 @@
         this.editing = null
       },
       getOrders(customer){
-        console.log(customer)
         return this.orders.filter(order => order.orderBy === customer.uid)
       },
       getProducts(order){
-        console.log(order)
         let productArray = [];
         for (var i = 0; i < order.OrderedProductIDs.length; i++) {
           productArray[i] = this.products.find(product => product.id === order.OrderedProductIDs[i]);
         }
         return productArray;
       },
+
       selectStatus(order){
         document.getElementById("statusMenu").value = order.orderStatus;
       }
