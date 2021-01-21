@@ -53,6 +53,7 @@
                   <li>{{"City: " + order.cityOrTown}}</li>
                   <li>{{"Postal code: " + order.postCode}}</li>
                   <li>{{"Street: " + order.streetAndNumber}}</li>
+                  <li >{{"Name recipient: " + order.name}}</li>
                   <li>{{"Contact number: " + order.phone}}</li>
                 </ul>
               </td>
