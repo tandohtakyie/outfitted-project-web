@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100">
+  <div class="w-100 statistic-box">
     <HomeStatistics
           :products="products" v-if="products.length"
         />

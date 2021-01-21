@@ -19,6 +19,14 @@ body {
   }
 }
 
+.tab-content>.active {
+  transition: 1s!important;
+}
+
+.statistic-box{
+  height: 500px;
+}
+
 header{
   > h5.modal-title{
     color: white!important;
